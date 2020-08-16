@@ -38,20 +38,6 @@ static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points.";
   cardButton.enabled = !card.isMatched;
 }
 
--(NSAttributedString *)currentGameStateToAttributedString;{
-  NSString * resultsLabelString = @"";
-  for(Card * card in self.game.currentGameState.cardsChoosenNotMatched){
-    resultsLabelString  = [resultsLabelString stringByAppendingString:card.description];
-  }
-  if(self.game.currentGameState.currentRoundScore > 0){
-    resultsLabelString = [NSString stringWithFormat:MATCHED_FORMAT , resultsLabelString, self.game.currentGameState.currentRoundScore];
-  }
-  else if(self.game.currentGameState.currentRoundScore < 0){
-    resultsLabelString = [NSString stringWithFormat:NOT_MATCHED_FORMAT , resultsLabelString, self.game.currentGameState.currentRoundScore];
-  }
-  return [[NSAttributedString alloc ] initWithString: resultsLabelString];
-}
-
 #pragma mark Helper private methods
 -(NSString *)titleForCard:(Card *) card{
   return card.isChosen ? card.description : @"";

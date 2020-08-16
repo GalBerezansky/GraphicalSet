@@ -345,13 +345,6 @@
                                     <action selector="touchCardButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="0Fz-Cw-QQA"/>
                                 </connections>
                             </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="dCS-PC-dit">
-                                <rect key="frame" x="20" y="724" width="352" height="54"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e1l-c7-sTu">
                                 <rect key="frame" x="143" y="785" width="129" height="30"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
@@ -370,17 +363,6 @@
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fYh-WA-eSV">
-                                <rect key="frame" x="356" y="783" width="58" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="History">
-                                    <color key="titleColor" red="0.0068768989290000004" green="0.095274902879999998" blue="0.57583576439999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="fko-er-aoq" kind="show" identifier="MoveToHistory" id="EsP-pI-ZlT"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
@@ -388,7 +370,6 @@
                     <navigationItem key="navigationItem" title="Play Card Game" id="wfL-C1-M7T"/>
                     <connections>
                         <outlet property="redealButton" destination="e1l-c7-sTu" id="4BH-hV-pva"/>
-                        <outlet property="reultsLabel" destination="dCS-PC-dit" id="jsG-H5-pCT"/>
                         <outlet property="scoreLabel" destination="k5g-RZ-Xzi" id="cvg-FY-SDg"/>
                         <outletCollection property="cardButtons" destination="6KP-yB-Jlp" id="Ka6-Hl-BYY"/>
                         <outletCollection property="cardButtons" destination="sds-9E-sJw" id="YR8-qy-ses"/>
@@ -770,31 +751,12 @@
                                     <action selector="touchRedealButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GaQ-zt-Qc5"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iTd-oh-IQe">
-                                <rect key="frame" x="350" y="782" width="58" height="34"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
-                                <state key="normal" title="History">
-                                    <color key="titleColor" red="0.0068768989290000004" green="0.095274902879999998" blue="0.57583576439999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <segue destination="rtT-5N-WHo" kind="show" identifier="MoveToHistory" id="SFe-Qw-rnV"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="NL1-s4-LTy">
-                                <rect key="frame" x="31" y="709" width="352" height="74"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" red="0.84465640779999995" green="0.51457053419999998" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="ASW-0N-cka"/>
                     </view>
                     <navigationItem key="navigationItem" title="Set Game" id="Pnj-mm-DZx"/>
                     <connections>
-                        <outlet property="reultsLabel" destination="NL1-s4-LTy" id="KN4-ZV-lEw"/>
                         <outlet property="scoreLabel" destination="aWz-TN-4MG" id="kaF-Jf-ICw"/>
                         <outletCollection property="cardButtons" destination="gjU-Kj-oED" id="rxB-tV-liD"/>
                         <outletCollection property="cardButtons" destination="g6K-US-v17" id="kQ1-nJ-W5q"/>

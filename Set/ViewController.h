@@ -28,21 +28,11 @@
 ///Updates the UI after each round.
 -(void) updateUI; //implemented
 
-///Updates the history tab when needed.
--(void) updateHistory; //implemented
-
 ///Creates the deck for the game (with random drawings).
 - (Deck *) createDeck; //Abstract method
 
 ///Updates the card game UI
 - (void)updateCardButton:(UIButton *)cardButton;//Abstract method
-
-///Updates the reults label
--(void) updateResultsLabel; //abstract
-
-///Takes the currentGameState (object) from game and translates it into an attributed string.
--(NSAttributedString *)currentGameStateToAttributedString; //Abstract method
-
 
 
 

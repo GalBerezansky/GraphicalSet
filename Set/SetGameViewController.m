@@ -42,51 +42,11 @@ static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points.";
   cardButton.enabled = !card.isMatched;
 }
 
--(NSAttributedString *)currentGameStateToAttributedString{
-  NSMutableAttributedString * resultsLabelString = [[NSMutableAttributedString alloc] init];
-  for(SetCard * card in self.game.currentGameState.cardsChoosenNotMatched){
-    [self updateResultAttributedStringByCard:card resultsLabelString:resultsLabelString];
-    
-  }
-  if(self.game.currentGameState.currentRoundScore > 0){
-    [self updateResultAttributedStringByGoodMatch:&resultsLabelString];
-    
-    
-  }
-  else if(self.game.currentGameState.currentRoundScore < 0){
-    [self updateResultAttributedStringByBadMatch:resultsLabelString];
-    
-  }
-  return resultsLabelString;
-}
 
  #pragma mark Helper private methods
 
-- (void)updateResultAttributedStringByCard:(SetCard *)card resultsLabelString:
-      (NSMutableAttributedString *)resultsLabelString {
-  NSAttributedString * attributedCard = [SetGameViewController cardToAttributedStringRep:card];
-  [resultsLabelString appendAttributedString:attributedCard];
-  [resultsLabelString appendAttributedString: [[NSAttributedString alloc] initWithString:@"  "]];
-}
 
 
-- (void)updateResultAttributedStringByGoodMatch:(NSMutableAttributedString **)resultsLabelString {
-  NSMutableAttributedString * matched1 = [[NSMutableAttributedString alloc]
-                                          initWithString:@"Matched "];
-  NSAttributedString * matched2 = [[NSAttributedString alloc] initWithString:
-                                   [NSString stringWithFormat:@" for %ld points." ,
-                                    self.game.currentGameState.currentRoundScore]];
-  [matched1 appendAttributedString:*resultsLabelString];
-  [matched1 appendAttributedString:matched2];
-  *resultsLabelString = matched1;
-}
-
-- (void)updateResultAttributedStringByBadMatch:(NSMutableAttributedString *)resultsLabelString {
-  NSAttributedString * matched2 = [[NSAttributedString alloc] initWithString:
-                                   [NSString stringWithFormat:@" Don't match! %ld points." ,
-                                    self.game.currentGameState.currentRoundScore]];
-  [resultsLabelString appendAttributedString:matched2];
-}
 
 +(NSAttributedString *)cardToAttributedStringRep : (SetCard *) card{
   float shadingFloatRep  =[[SetGameViewController stringToShadingFloat][card.shading] floatValue];

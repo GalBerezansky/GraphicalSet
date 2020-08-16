@@ -24,11 +24,6 @@
   [self updateUI];
 }
 
--(void) updateResultsLabel{
-  self.reultsLabel.attributedText =  [self currentGameStateToAttributedString];
-  [self updateHistory];
-}
-
 - (IBAction)touchCardButton:(UIButton *)sender {
   NSUInteger chooseButtonIndex = [self.cardButtons indexOfObject:sender];
   [self.game chooseCardAtIndex:chooseButtonIndex];
@@ -46,24 +41,8 @@
     [self updateCardButton:cardButton];
   }
   self.scoreLabel.text = [NSString stringWithFormat:@"Score: %ld" , self.game.score];
-  [self updateResultsLabel];
 }
 
--(void) updateHistory{
-  NSAttributedString * N = [[NSAttributedString alloc ] initWithString: @"\n"];
-  [self.gameHistoryAttributedString appendAttributedString:N];
-  [self.gameHistoryAttributedString appendAttributedString:
-    [self currentGameStateToAttributedString]];
-}
-
--(void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender{
-  if([segue.identifier isEqualToString:@"MoveToHistory"]){
-    if([segue.destinationViewController isKindOfClass:[HistoryViewController class]]){
-      HistoryViewController * hvc = (HistoryViewController * )segue.destinationViewController;
-      hvc.historyAttributedString = self.gameHistoryAttributedString;
-    }
-  }
-}
 
 #pragma mark Abstract methods
 -(Deck *) createDeck //Abstract Method
