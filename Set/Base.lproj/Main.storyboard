@@ -312,6 +312,10 @@
                                 <rect key="frame" x="31" y="618" width="65" height="106"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <gestureRecognizers/>
+                                <connections>
+                                    <outletCollection property="gestureRecognizers" destination="ncr-a8-Qee" appends="YES" id="nzy-KO-rHh"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -319,6 +323,7 @@
                     </view>
                     <navigationItem key="navigationItem" title="Play Card Game" id="wfL-C1-M7T"/>
                     <connections>
+                        <outlet property="playingCardView" destination="Dtu-LA-z1A" id="Peh-yy-Fia"/>
                         <outlet property="redealButton" destination="e1l-c7-sTu" id="4BH-hV-pva"/>
                         <outlet property="scoreLabel" destination="k5g-RZ-Xzi" id="cvg-FY-SDg"/>
                         <outletCollection property="cardButtons" destination="6KP-yB-Jlp" id="Ka6-Hl-BYY"/>
@@ -349,6 +354,11 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <tapGestureRecognizer id="ncr-a8-Qee">
+                    <connections>
+                        <action selector="tap:" destination="BYZ-38-t0r" id="sbp-G8-4WP"/>
+                    </connections>
+                </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1042.0289855072465" y="-638.16964285714278"/>
         </scene>

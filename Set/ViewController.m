@@ -7,19 +7,28 @@
 //
 
 #import "ViewController.h"
-#import "HistoryViewController.h"
+#import "PlayingCardView.h"
 
 @interface ViewController ()
+@property (weak, nonatomic) IBOutlet PlayingCardView *playingCardView;
 @property (weak, nonatomic) IBOutlet UIButton *redealButton;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @end
 
 @implementation ViewController//Abstract class
+
+- (IBAction)tap:(UITapGestureRecognizer *)sender {
+  self.playingCardView.faceUp = !self.playingCardView.faceUp;
+}
+
+
 #pragma mark Instance Methods
 - (void)viewDidLoad {
   [super viewDidLoad];
   self.game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
                                                 usingDeck:[self createDeck]];
+  self.playingCardView.suit = @"♥️";
+  self.playingCardView.rank = 13;
   [self updateUI];
 }
 
