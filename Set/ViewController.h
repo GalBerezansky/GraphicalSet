@@ -19,12 +19,6 @@
 ///The cards buttons array.
 @property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
 
-///The result label.
-@property (weak, nonatomic) IBOutlet UILabel *reultsLabel;
-
-///Holds the attributed string that represents the game history.
-@property (strong , nonatomic) NSMutableAttributedString * gameHistoryAttributedString;
-
 ///Updates the UI after each round.
 -(void) updateUI; //implemented
 

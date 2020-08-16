@@ -46,8 +46,6 @@ static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points.";
  #pragma mark Helper private methods
 
 
-
-
 +(NSAttributedString *)cardToAttributedStringRep : (SetCard *) card{
   float shadingFloatRep  =[[SetGameViewController stringToShadingFloat][card.shading] floatValue];
   UIColor * cardColor = [SetGameViewController stringToColors][card.color];

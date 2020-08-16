@@ -17,7 +17,6 @@
 @implementation ViewController//Abstract class
 #pragma mark Instance Methods
 - (void)viewDidLoad {
-  self.gameHistoryAttributedString = [[NSMutableAttributedString alloc] initWithString:@""];
   [super viewDidLoad];
   self.game = [[CardMatchingGame alloc] initWithCardCount:[self.cardButtons count]
                                                 usingDeck:[self createDeck]];
