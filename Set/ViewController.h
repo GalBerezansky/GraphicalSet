@@ -15,9 +15,7 @@
 
 ///Holds the object that runs the game.
 @property (strong , nonatomic) CardMatchingGame * game;
-
-///The cards buttons array.
-@property (strong, nonatomic) IBOutletCollection(UIButton) NSArray *cardButtons;
+@property (strong , nonatomic) NSMutableArray<UIView *> * cardViews;
 
 ///Updates the UI after each round.
 -(void) updateUI; //implemented
@@ -26,7 +24,8 @@
 - (Deck *) createDeck; //Abstract method
 
 ///Updates the card game UI
-- (void)updateCardButton:(UIButton *)cardButton;//Abstract method
+- (void)updateCardView:(UIView *)cardView;//Abstract Method
+  
 
 
 

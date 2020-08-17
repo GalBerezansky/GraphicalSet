@@ -18,7 +18,7 @@ static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points."; //
 
 @interface CardMatchingGame()
 @property (nonatomic , readwrite) NSInteger score;
-@property (nonatomic,strong) NSMutableArray *cards;
+
 
 @end
 

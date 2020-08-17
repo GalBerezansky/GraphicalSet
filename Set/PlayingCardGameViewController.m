@@ -7,15 +7,13 @@
 //
 
 #import "PlayingCardGameViewController.h"
+#import "PlayingCardView.h"
 #import "PlayingCardDeck.h"
 #define PlayCardMatchMode 2
 
 static NSString * MATCHED_FORMAT = @"Matched %@ for %d points.";
 static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points.";
 
-//@interface PlayingCardGameViewController ()
-//
-//@end
 
 @implementation PlayingCardGameViewController
 
@@ -25,17 +23,18 @@ static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points.";
   self.game.matchMode = PlayCardMatchMode;
 }
 
+
+
 #pragma mark Abstract methods implementation
 -(Deck *) createDeck{
   return [[PlayingCardDeck alloc] init];
 }
 
--(void) updateCardButton: (UIButton * ) cardButton{
-  NSUInteger cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
-  Card * card = [self.game cardAtIndex:cardButtonIndex];
-  [cardButton setTitle:[self titleForCard:card] forState:UIControlStateNormal];
-  [cardButton setBackgroundImage:[self backgroundImageForCard:card] forState:UIControlStateNormal];
-  cardButton.enabled = !card.isMatched;
+- (void)updateCardView:(UIView *)cardView {//Abstract Method
+  NSUInteger cardViewIndex = [self.cardViews indexOfObject:cardView];
+  Card * card = [self.game cardAtIndex:cardViewIndex];
+  PlayingCardView * playingCardView = (PlayingCardView *)cardView;
+  [playingCardView setNeedsDisplay];
 }
 
 #pragma mark Helper private methods

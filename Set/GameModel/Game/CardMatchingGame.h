@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface CardMatchingGame : NSObject
 
+@property (nonatomic,strong) NSMutableArray *cards;
+
 - (instancetype) initWithCardCount: (NSUInteger)count
                          usingDeck: (Deck *)deck; // NS_DESIGNATED_INITIALIZER
 

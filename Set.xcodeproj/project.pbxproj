@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		970B313F24EA725200ADBB52 /* Grid.mm in Sources */ = {isa = PBXBuildFile; fileRef = 970B313D24EA725200ADBB52 /* Grid.mm */; };
 		9732990F24E3D5810062690A /* SetCard.m in Sources */ = {isa = PBXBuildFile; fileRef = 9732990E24E3D5810062690A /* SetCard.m */; };
 		9732991224E3F8080062690A /* PlayingCardGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9732991124E3F8080062690A /* PlayingCardGameViewController.m */; };
 		9732991524E3FE9D0062690A /* SetGameViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9732991424E3FE9D0062690A /* SetGameViewController.m */; };
@@ -28,6 +29,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		970B313D24EA725200ADBB52 /* Grid.mm */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.objcpp; path = Grid.mm; sourceTree = "<group>"; };
+		970B313E24EA725200ADBB52 /* Grid.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Grid.h; sourceTree = "<group>"; };
 		9732990D24E3D5810062690A /* SetCard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SetCard.h; sourceTree = "<group>"; };
 		9732990E24E3D5810062690A /* SetCard.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SetCard.m; sourceTree = "<group>"; };
 		9732991024E3F8080062690A /* PlayingCardGameViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PlayingCardGameViewController.h; path = ../PlayingCardGameViewController.h; sourceTree = "<group>"; };
@@ -75,6 +78,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		970B314024EA779900ADBB52 /* Grid */ = {
+			isa = PBXGroup;
+			children = (
+				970B313D24EA725200ADBB52 /* Grid.mm */,
+				970B313E24EA725200ADBB52 /* Grid.h */,
+			);
+			path = Grid;
+			sourceTree = "<group>";
+		};
 		9732991F24E81F610062690A /* Card */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,6 +140,7 @@
 		974EF5BC24E8FEE500E76791 /* Support Files */ = {
 			isa = PBXGroup;
 			children = (
+				970B314024EA779900ADBB52 /* Grid */,
 				97B81FA624E3D0AB004FC0A2 /* AppDelegate.h */,
 				97B81FA724E3D0AB004FC0A2 /* AppDelegate.m */,
 				97B81FA924E3D0AB004FC0A2 /* SceneDelegate.h */,
@@ -174,9 +187,8 @@
 				9732992224E81F920062690A /* ViewController */,
 				97B81FD224E3D22C004FC0A2 /* GameModel */,
 			);
-			name = Set;
-			path = /Users/gberezansky/Desktop/IOSDevBootcamp/SetProject/Set/Set;
-			sourceTree = "<absolute>";
+			path = Set;
+			sourceTree = SOURCE_ROOT;
 		};
 		97B81FD224E3D22C004FC0A2 /* GameModel */ = {
 			isa = PBXGroup;
@@ -263,6 +275,7 @@
 				9732991524E3FE9D0062690A /* SetGameViewController.m in Sources */,
 				97B81FE124E3D48C004FC0A2 /* CardMatchingGame.m in Sources */,
 				97967E1824E93F9F00A740B0 /* PlayingCardView.m in Sources */,
+				970B313F24EA725200ADBB52 /* Grid.mm in Sources */,
 				97B81FAE24E3D0AB004FC0A2 /* ViewController.m in Sources */,
 				9732991824E51C670062690A /* CurrentGameState.m in Sources */,
 				97B81FDE24E3D37A004FC0A2 /* SetCardDeck.m in Sources */,

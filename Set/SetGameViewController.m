@@ -33,13 +33,13 @@ static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points.";
 }
 
 -(void) updateCardButton:(UIButton *)cardButton{
-  NSUInteger cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
-  SetCard * card = (SetCard *)[self.game cardAtIndex:cardButtonIndex];
-  [cardButton setAttributedTitle:[SetGameViewController cardToAttributedStringRep:card]
-                        forState:UIControlStateNormal];
-  [cardButton setBackgroundImage:[self backgroundImageForCard:card]
-                        forState:UIControlStateNormal];
-  cardButton.enabled = !card.isMatched;
+//  NSUInteger cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
+//  SetCard * card = (SetCard *)[self.game cardAtIndex:cardButtonIndex];
+//  [cardButton setAttributedTitle:[SetGameViewController cardToAttributedStringRep:card]
+//                        forState:UIControlStateNormal];
+//  [cardButton setBackgroundImage:[self backgroundImageForCard:card]
+//                        forState:UIControlStateNormal];
+//  cardButton.enabled = !card.isMatched;
 }
 
 

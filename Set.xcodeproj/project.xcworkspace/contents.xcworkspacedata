@@ -2,6 +2,19 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:Set.xcodeproj">
+      location = "group:/Users/gberezansky/Desktop/IOSDevBootcamp/SetProject/Set/Set/Support Files/GridFiles/Grid.h">
+   </FileRef>
+   <FileRef
+      location = "absolute:/Users/gberezansky/Desktop/IOSDevBootcamp/SetProject/Set/Set/Support Files/GridFiles/bh.m">
+   </FileRef>
+   <Group
+      location = "container:"
+      name = "New Group">
+   </Group>
+   <FileRef
+      location = "group:../Set/Grid">
+   </FileRef>
+   <FileRef
+      location = "self:">
    </FileRef>
 </Workspace>
