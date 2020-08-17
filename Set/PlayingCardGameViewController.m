@@ -9,11 +9,8 @@
 #import "PlayingCardGameViewController.h"
 #import "PlayingCardView.h"
 #import "PlayingCardDeck.h"
+#import "PlayingCard.h"
 #define PlayCardMatchMode 2
-
-static NSString * MATCHED_FORMAT = @"Matched %@ for %d points.";
-static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points.";
-
 
 @implementation PlayingCardGameViewController
 
@@ -30,23 +27,30 @@ static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points.";
   return [[PlayingCardDeck alloc] init];
 }
 
-- (void)updateCardView:(UIView *)cardView {//Abstract Method
-  NSUInteger cardViewIndex = [self.cardViews indexOfObject:cardView];
-  Card * card = [self.game cardAtIndex:cardViewIndex];
-  PlayingCardView * playingCardView = (PlayingCardView *)cardView;
-  [playingCardView setNeedsDisplay];
+- (void)setCardView:(UIView <CardViewProtocol>*) cardView WithCard :(Card *)card {
+  PlayingCard * playCard = (PlayingCard *)card;
+  PlayingCardView * playCardView = (PlayingCardView *) cardView;
+  playCardView.rank = playCard.rank;
+  playCardView.suit = playCard.suit;
+  if(card.chosen){
+    cardView.faceUp = YES;
+  }
 }
 
-#pragma mark Helper private methods
--(NSString *)titleForCard:(Card *) card{
-  return card.isChosen ? card.description : @"";
+
+-(Card *)getCardAssosiatedToCardView:(UIView *)cardView{
+  for(PlayingCard * playCard in self.game.cards){
+    PlayingCardView * playCardView = (PlayingCardView * )cardView;
+    if(playCard.rank == playCardView.rank && [playCard.suit isEqualToString:playCardView.suit]){
+      return playCard;
+    }
+  }
+  return nil;
 }
 
--(UIImage *)backgroundImageForCard:(Card *) card
-{
-  return [UIImage imageNamed:card.isChosen ? @"playcardfront" : @"playcardback"];
-}
+#pragma mark Private Helper Methods
 
+  
 
 
 @end

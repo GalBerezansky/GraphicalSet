@@ -8,9 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
+#import "CardViewProtocol.h"
+
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PlayingCardView : UIView
+@interface PlayingCardView : UIView<CardViewProtocol>
 
 @property (nonatomic) NSUInteger rank;
 @property (strong, nonatomic) NSString *suit;

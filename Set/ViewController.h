@@ -9,6 +9,7 @@
 
 #import "Deck.h"
 #import "CardMatchingGame.h"
+#import "CardViewProtocol.h"
 #import <UIKit/UIKit.h>
 
 @interface ViewController : UIViewController//Abstract class
@@ -17,16 +18,12 @@
 @property (strong , nonatomic) CardMatchingGame * game;
 @property (strong , nonatomic) NSMutableArray<UIView *> * cardViews;
 
-///Updates the UI after each round.
--(void) updateUI; //implemented
-
 ///Creates the deck for the game (with random drawings).
 - (Deck *) createDeck; //Abstract method
 
-///Updates the card game UI
-- (void)updateCardView:(UIView *)cardView;//Abstract Method
+-(void)setCardView:(UIView <CardViewProtocol>*) cardView WithCard :(Card *)card;
   
-
+-(Card *)getCardAssosiatedToCardView:(UIView <CardViewProtocol>*)cardView;
 
 
 @end

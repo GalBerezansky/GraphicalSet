@@ -58,35 +58,6 @@
             </objects>
             <point key="canvasLocation" x="1042.0289855072465" y="-638.16964285714278"/>
         </scene>
-        <!--History-->
-        <scene sceneID="jts-yc-vlX">
-            <objects>
-                <viewController id="fko-er-aoq" customClass="HistoryViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="7PL-wT-bzT">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="9si-fc-5GK">
-                                <rect key="frame" x="20" y="104" width="364" height="728"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="Fyg-BU-lKQ"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="History" id="Rc8-7O-gkM"/>
-                    <connections>
-                        <outlet property="historyTextView" destination="9si-fc-5GK" id="W45-PJ-Wx1"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="DQF-qA-OUf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2018.840579710145" y="-644.19642857142856"/>
-        </scene>
         <!--Set Game-->
         <scene sceneID="ihK-eb-i8Q">
             <objects>
@@ -438,35 +409,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="b6s-AT-8jU" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1042.0289855072465" y="118.52678571428571"/>
-        </scene>
-        <!--History-->
-        <scene sceneID="nd1-wW-Qvh">
-            <objects>
-                <viewController id="rtT-5N-WHo" customClass="HistoryViewController" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="9N5-CU-5K6">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="IRf-WX-pcZ">
-                                <rect key="frame" x="20" y="110" width="364" height="728"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
-                        </subviews>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                        <viewLayoutGuide key="safeArea" id="mmN-V8-ibQ"/>
-                    </view>
-                    <navigationItem key="navigationItem" title="History" id="snv-vk-yCd"/>
-                    <connections>
-                        <outlet property="historyTextView" destination="IRf-WX-pcZ" id="gfA-bg-ZZT"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="A8G-ei-M76" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="2115.9420289855075" y="118.52678571428571"/>
         </scene>
         <!--Play Card-->
         <scene sceneID="ktB-58-9UA">
