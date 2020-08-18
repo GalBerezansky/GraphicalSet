@@ -44,9 +44,9 @@
     [self setNeedsDisplay];
 }
 
-- (void)setFaceUp:(BOOL)faceUp
+- (void)setChosen:(BOOL)chosen
 {
-    _faceUp = faceUp;
+    _chosen = chosen;
     [self setNeedsDisplay];
 }
 
@@ -91,7 +91,7 @@
     [[UIColor blackColor] setStroke];
     [roundedRect stroke];
     
-    if (self.faceUp) {
+    if (self.chosen) {
         UIImage *faceImage = [UIImage imageNamed:[NSString stringWithFormat:@"%@%@",
                                                   [self rankAsString], self.suit]];
         if (faceImage) {

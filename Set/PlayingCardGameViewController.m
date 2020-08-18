@@ -33,7 +33,7 @@
   playCardView.rank = playCard.rank;
   playCardView.suit = playCard.suit;
   if(card.chosen){
-    cardView.faceUp = YES;
+    cardView.chosen = YES;
   }
 }
 

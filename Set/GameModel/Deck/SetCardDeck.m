@@ -19,15 +19,15 @@
 {
   self = [super init];
   if (self){
-    for(NSString * shape in [SetCard validShapes]){
-      for(NSString * shading in [SetCard validShadings]){
-        for(NSString * color in [SetCard validColors]){
-          for(int numberOfShapes = 1; numberOfShapes <= [SetCard maxAmountOfShapes] ;
-              numberOfShapes++){
+    for(int colorIndex = 0 ; colorIndex < 3 ; colorIndex++){
+      for(int shadingIndex = 0 ; shadingIndex < 3 ; shadingIndex++){
+        for(int shapeIndex = 0 ; shapeIndex < 3 ; shapeIndex++){
+          for(int numberOfShapes = 1; numberOfShapes <= 3;numberOfShapes++)
+            {
             SetCard * card = [[SetCard alloc] init];
-            card.shape = shape;
-            card.shading = shading;
-            card.color = color;
+            card.shape = ((Shape)shapeIndex);
+            card.shading = ((Shading)shadingIndex);
+            card.color = ((Color)colorIndex);
             card.numberOfShapes = numberOfShapes;
             [self addCard:card];
           }
@@ -35,6 +35,7 @@
       }
     }
   }
+  NSLog(@"deck initalized!");
   return self;
 }
 

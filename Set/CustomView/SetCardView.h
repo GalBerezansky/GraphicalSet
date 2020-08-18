@@ -1,17 +1,19 @@
 //
-//  SetCard.h
-//  SetProject 12/08/2020
+//  SetCardView.h
+//  Set
 //
-//  Created by Gal Berezansky on 11/08/2020.
+//  Created by Gal Berezansky on 17/08/2020.
 //  Copyright © 2020 Gal Bereznaksy. All rights reserved.
 //
-//
-#import "Card.h"
+#import "CardViewProtocol.h"
 #import "SetCardEnums.h"
+#import <UIKit/UIKit.h>
+
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface SetCard : Card
+@interface SetCardView : UIView<CardViewProtocol>
+
 ///A enum representation of the shape .
 @property (nonatomic , assign) Shape shape;
 
@@ -23,6 +25,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 ///A enum representation of the color .
 @property (nonatomic , assign) Color color;
+
+@property (nonatomic) BOOL chosen;
 
 @end
 

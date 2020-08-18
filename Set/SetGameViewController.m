@@ -7,6 +7,7 @@
 //
 
 #import "SetGameViewController.h"
+#import "SetCardView.h"
 #import "SetCardDeck.h"
 #import "SetCard.h"
 
@@ -32,31 +33,26 @@ static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points.";
   
 }
 
--(void) updateCardButton:(UIButton *)cardButton{
-//  NSUInteger cardButtonIndex = [self.cardButtons indexOfObject:cardButton];
-//  SetCard * card = (SetCard *)[self.game cardAtIndex:cardButtonIndex];
-//  [cardButton setAttributedTitle:[SetGameViewController cardToAttributedStringRep:card]
-//                        forState:UIControlStateNormal];
-//  [cardButton setBackgroundImage:[self backgroundImageForCard:card]
-//                        forState:UIControlStateNormal];
-//  cardButton.enabled = !card.isMatched;
+
+- (void)setCardView:(UIView <CardViewProtocol>*) cardView WithCard :(Card *)card {
+  SetCard * setCard = (SetCard *)card;
+  SetCardView * setCardView = (SetCardView *) cardView;
+  if(card.chosen){
+    cardView.chosen = YES;
+  }
+}
+
+
+-(Card *)getCardAssosiatedToCardView:(UIView *)cardView{
+  for(SetCard * setCard in self.game.cards){
+    SetCardView * setCardView= (SetCardView *)cardView;
+  }
+  return nil;
 }
 
 
  #pragma mark Helper private methods
 
-
-+(NSAttributedString *)cardToAttributedStringRep : (SetCard *) card{
-  float shadingFloatRep  =[[SetGameViewController stringToShadingFloat][card.shading] floatValue];
-  UIColor * cardColor = [SetGameViewController stringToColors][card.color];
-  UIColor * cardColorShaded = [cardColor colorWithAlphaComponent:shadingFloatRep];
-  NSDictionary * attDic = @{NSForegroundColorAttributeName : cardColorShaded ,
-                            NSStrokeColorAttributeName : cardColor,
-                            NSStrokeWidthAttributeName : @-5} ;
-  NSAttributedString * cardAttributedString = [[NSAttributedString alloc]
-                                               initWithString:card.description attributes:attDic];
-  return cardAttributedString;
-}
 
 +(NSDictionary *) stringToColors {
   return @{@"red" : [UIColor redColor] ,

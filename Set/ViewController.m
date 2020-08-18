@@ -49,7 +49,8 @@
   self.grid = [[Grid alloc] init];
   self.grid.size = CGSizeMake(300, 500);
   self.grid.cellAspectRatio = 1;
-  self.grid.minimumNumberOfCells = K_INITIAL_NUMBER_OF_CARDS;
+  self.grid.minimumNumberOfCells = 12;
+  NSLog(@"%@" , self.grid.description);
 }
 
 -(void)initCardViewInGridAtRow:(int) r atCol:(int)c{
@@ -82,7 +83,7 @@
     NSLog(@"%@ is already matched" , card.description);
     return;
   }
-  cardView.faceUp = !cardView.faceUp;
+  cardView.chosen = !cardView.chosen;
   [self.game chooseCardAtIndex:chooseViewIndex];
   [self updateUI];
 }
@@ -102,7 +103,7 @@
     return;
   }
   if(!card.chosen){
-    cardView.faceUp = NO;
+    cardView.chosen = NO;
   }
   
 }
