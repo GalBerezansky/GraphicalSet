@@ -12,6 +12,7 @@
 
 @property (strong , nonatomic) UIGravityBehavior *gravity;
 @property (strong , nonatomic) UICollisionBehavior *collider;
+@property (strong , nonatomic) UIDynamicItemBehavior* animationOptions;
 
 
 @end
@@ -25,8 +26,11 @@
   self.gravity.gravityDirection = CGVectorMake(0, -1);
   self.collider = [[UICollisionBehavior alloc] init];
   self.collider.translatesReferenceBoundsIntoBoundary = YES;
+  self.animationOptions = [[UIDynamicItemBehavior alloc] init];
+  self.animationOptions.allowsRotation = NO;
   [self addChildBehavior:self.gravity];
   [self addChildBehavior:self.collider];
+  [self addChildBehavior:self.animationOptions];
   
   return self;
 }
@@ -34,10 +38,12 @@
 -(void)addItem:(id<UIDynamicItem>) item{
   [self.gravity addItem:item];
   [self.collider addItem:item];
+  [self.animationOptions addItem:item];
 }
 -(void)removeItem:(id<UIDynamicItem>) item{
   [self.gravity removeItem:item];
   [self.collider removeItem:item];
+  [self.animationOptions removeItem:item];
 }
 
 -(void)dynamicAnimatorDidPause:(UIDynamicAnimator *)animator{
