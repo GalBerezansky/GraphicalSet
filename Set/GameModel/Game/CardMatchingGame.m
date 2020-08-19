@@ -17,77 +17,81 @@ static NSString * MATCHED_FORMAT = @"Matched %@ for %d points."; //CONST OR NOT?
 static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points."; //CONST OR NOT?
 
 @interface CardMatchingGame()
-@property (nonatomic , readwrite) NSInteger score;
 
+@property (strong,nonatomic) Deck * deck;
+
+@property (nonatomic , readwrite) NSInteger score;
 
 @end
 
 
 @implementation CardMatchingGame
 
-#pragma mark Instance methods
+#pragma mark Initalizers methods
 -(instancetype) initWithCardCount:(NSUInteger)count usingDeck:(Deck *)deck{
-    if(self = [super init]){
-        self.cards = [[NSMutableArray alloc] init];
-        for(NSUInteger i = 0 ; i < count ; i++){
-            Card * card = [deck drawRandomCard];
-            if(card) [self.cards addObject:card];
-            else return nil; //if draw failed we would return nil
-        }
-        self.currentGameState = [[CurrentGameState alloc]initWithCards:self.cards];
-        self.matchMode = MATCH_MODE2P;//by default it is 2-card-match mode , can be changed.
+  if(self = [super init]){
+    self.deck = deck;
+    self.cards = [[NSMutableArray alloc] init];
+    for(NSUInteger i = 0 ; i < count ; i++){
+      Card * card = [self addCardToGame];
+      if(!card) return nil; //if draw failed we would return nil
     }
-    return self;
+    self.matchMode = MATCH_MODE2P;//by default it is 2-card-match mode , can be changed.
+  }
+  return self;
 }
+
+#pragma mark Public API methods
+
+-(Card *)addCardToGame{
+  Card * card = [self.deck drawRandomCard];
+  if(card)[self.cards addObject:card];
+  return card;
+}
+
 
 -(Card *)cardAtIndex:(NSUInteger)index
 {
-    return (index < [self.cards count]) ? self.cards[index]: nil;
+  return (index < [self.cards count]) ? self.cards[index]: nil;
 }
 
 - (void) chooseCardAtIndex:(NSUInteger)index
 {
-    [self.currentGameState updateCurrentRoundGameScore:0];
-    Card *card = [self cardAtIndex:index];
-    if(card.chosen){
-        card.chosen = NO;
-        [self.currentGameState updateCurrentRoundGameCardsChoosen];
-        return;
+  Card *card = [self cardAtIndex:index];
+  if(card.chosen){
+    card.chosen = NO;
+    return;
+  }
+  NSMutableArray * otherCards = [NSMutableArray array];
+  for(Card * otherCard in self.cards){//create the Array for the match method of Card
+    if(otherCard.isChosen && !otherCard.isMatched){
+      [otherCards addObject:otherCard];
     }
-    NSMutableArray * otherCards = [NSMutableArray array];
-    for(Card * otherCard in self.cards){//create the Array for the match method of Card
-        if(otherCard.isChosen && !otherCard.isMatched){
-            [otherCards addObject:otherCard];
-        }
-    }
-    self.score-=COST_TO_CHOOSE;
-    card.chosen = YES;
-    [self.currentGameState updateCurrentRoundGameCardsChoosen];
-    if([otherCards count] == self.matchMode - 1){//if enough cards where choosen
-        [self updateGameByScore:card otherCards:otherCards];
-    }
+  }
+  self.score-=COST_TO_CHOOSE;
+  card.chosen = YES;
+  if([otherCards count] == self.matchMode - 1){//if enough cards where choosen
+    [self updateGameByScore:card otherCards:otherCards];
+  }
 }
 
 #pragma mark Private helper methods
 
 - (void)updateGameByScore:(Card *)card  otherCards:(NSMutableArray *)otherCards {
-    int matchScore = [card match:otherCards];
-    int currentRoundScore = 0;
-    if(matchScore){
-        currentRoundScore =matchScore * MATCH_BONUS;
-        card.matched = YES;
-        for(Card * otherCard in otherCards){
-            otherCard.matched = YES;
-        }
+  int matchScore = [card match:otherCards];
+  if(matchScore){
+    self.score += matchScore * MATCH_BONUS;
+    card.matched = YES;
+    for(Card * otherCard in otherCards){
+      otherCard.matched = YES;
     }
-    else{
-        currentRoundScore = -MISMATCH_PENALTY;
-        for(Card * otherCard in otherCards){
-            otherCard.chosen = NO;
-        }
+  }
+  else{
+    self.score -= MISMATCH_PENALTY;
+    for(Card * otherCard in otherCards){
+      otherCard.chosen = NO;
     }
-    [self.currentGameState updateCurrentRoundGameScore:currentRoundScore];
-    self.score += currentRoundScore;
+  }
 }
 
 

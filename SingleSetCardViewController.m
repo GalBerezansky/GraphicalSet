@@ -12,8 +12,8 @@
 #import "SetCard.h"
 
 @interface SingleSetCardViewController ()
-@property (weak, nonatomic) IBOutlet SetCardView *setCardView;
 @property (strong, nonatomic) SetCardDeck * deck;
+@property (weak, nonatomic) IBOutlet SetCardView *setView;
 
 @end
 
@@ -23,10 +23,10 @@
   [super viewDidLoad];
   self.deck = [[SetCardDeck alloc] init];
   SetCard * card = (SetCard *)[self.deck drawRandomCard];
-  self.setCardView.color = card.color;
-  self.setCardView.shape = card.shape;
-  self.setCardView.shading = card.shading;
-  self.setCardView.numberOfShapes = card.numberOfShapes;
-  self.setCardView.chosen = NO;
+  self.setView.color = card.color;
+  self.setView.shape = card.shape;
+  self.setView.shading = card.shading;
+  self.setView.numberOfShapes = card.numberOfShapes;
+  self.setView.chosen = NO;
 }
 @end

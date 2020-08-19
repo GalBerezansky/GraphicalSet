@@ -28,6 +28,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) BOOL chosen;
 
+@property (nonatomic) BOOL matched;
+
 @end
 
 NS_ASSUME_NONNULL_END

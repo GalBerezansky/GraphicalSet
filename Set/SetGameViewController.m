@@ -13,9 +13,6 @@
 
 #define SetMatchMode 3
 
-static NSString * MATCHED_FORMAT = @"Matched %@ for %d points.";
-static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points.";
-
 @implementation SetGameViewController
 
 #pragma mark Instance methods
@@ -33,40 +30,40 @@ static NSString * NOT_MATCHED_FORMAT = @"%@ Don't match! %d penalty points.";
   
 }
 
-
 - (void)setCardView:(UIView <CardViewProtocol>*) cardView WithCard :(Card *)card {
   SetCard * setCard = (SetCard *)card;
   SetCardView * setCardView = (SetCardView *) cardView;
+  setCardView.shape = setCard.shape;
+  setCardView.numberOfShapes = setCard.numberOfShapes;
+  setCardView.shading = setCard.shading;
+  setCardView.color = setCard.color;
   if(card.chosen){
     cardView.chosen = YES;
+  }
+  if(card.matched){
+    cardView.matched = YES;
   }
 }
 
 
 -(Card *)getCardAssosiatedToCardView:(UIView *)cardView{
   for(SetCard * setCard in self.game.cards){
-    SetCardView * setCardView= (SetCardView *)cardView;
+    SetCardView * setCardView = (SetCardView *) cardView;
+    if(setCardView.shape == setCard.shape &&
+       setCardView.numberOfShapes == setCard.numberOfShapes &&
+       setCardView.shading == setCard.shading &&
+       setCardView.color == setCard.color){
+          return setCard;
+    }
   }
   return nil;
 }
 
 
- #pragma mark Helper private methods
-
-
-+(NSDictionary *) stringToColors {
-  return @{@"red" : [UIColor redColor] ,
-           @"green" : [UIColor greenColor] ,
-           @"purple" : [UIColor purpleColor]};
+-(UIView<CardViewProtocol> *)createCardView{
+  SetCardView * setCardView = [[SetCardView alloc] initWithFrame: CGRectMake(0, 0, self.grid.cellSize.width, self.grid.cellSize.height)];
+  return setCardView;
 }
 
-+(NSDictionary *) stringToShadingFloat{
-  return @{@"hollow" : @0 , @"shaded" : @0.3, @"filled" : @1.0};
-}
-
--(UIImage *)backgroundImageForCard:(Card *) card
-{
-  return [UIImage imageNamed:card.isChosen ? @"setcardchoosen" : @"setcardfront"];
-}
 
 @end

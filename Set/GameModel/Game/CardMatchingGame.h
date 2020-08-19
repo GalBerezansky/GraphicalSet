@@ -24,17 +24,17 @@ NS_ASSUME_NONNULL_BEGIN
 ///Chooses a card at an index and updates the game state accordingly.
 - (void)chooseCardAtIndex:(NSUInteger)index;
 
-///Returns a card at a given index.
+///Returns a card (in the game) at a given index.
 -(Card *) cardAtIndex:(NSUInteger)index;
+
+///adds a new random drawed card from the deck
+-(Card *)addCardToGame;
 
 ///The score of the game.
 @property (nonatomic , readonly) NSInteger score;
 
 ///The mode of the game (2- cars match or 3-cards match)
 @property (nonatomic) NSInteger matchMode;
-
-///holds information of the current game state fro the results feature.
-@property (nonatomic,strong) CurrentGameState * currentGameState;
 
 @end
 

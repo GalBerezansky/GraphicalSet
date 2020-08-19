@@ -9,6 +9,7 @@
 #import "SetCardDeck.h"
 #import "SetCard.h"
 
+#define kNUMBER_OF_ATTRIBUTES 3
 
 @implementation SetCardDeck
 
@@ -19,10 +20,10 @@
 {
   self = [super init];
   if (self){
-    for(int colorIndex = 0 ; colorIndex < 3 ; colorIndex++){
-      for(int shadingIndex = 0 ; shadingIndex < 3 ; shadingIndex++){
-        for(int shapeIndex = 0 ; shapeIndex < 3 ; shapeIndex++){
-          for(int numberOfShapes = 1; numberOfShapes <= 3;numberOfShapes++)
+    for(int colorIndex = 0 ; colorIndex < kNUMBER_OF_ATTRIBUTES ; colorIndex++){
+      for(int shadingIndex = 0 ; shadingIndex < kNUMBER_OF_ATTRIBUTES ; shadingIndex++){
+        for(int shapeIndex = 0 ; shapeIndex < kNUMBER_OF_ATTRIBUTES ; shapeIndex++){
+          for(int numberOfShapes = 1; numberOfShapes <= kNUMBER_OF_ATTRIBUTES;numberOfShapes++)
             {
             SetCard * card = [[SetCard alloc] init];
             card.shape = ((Shape)shapeIndex);
@@ -35,7 +36,6 @@
       }
     }
   }
-  NSLog(@"deck initalized!");
   return self;
 }
 

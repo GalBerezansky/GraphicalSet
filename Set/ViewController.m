@@ -7,19 +7,21 @@
 //
 
 #import "ViewController.h"
-#import "PlayingCardDeck.h"
-#import "PlayingCard.h"
-#import "PlayingCardView.h"
 #import "Grid.h"
+#import "CardBehavior.h"
 
-#define K_INITIAL_NUMBER_OF_CARDS 12
+#define kINITIAL_NUMBER_OF_CARDS 12
+#define kROW_INDEX_TO_ADD_CARD_AT 6
+#define kNUMBER_OF_CARDS_TO_ADD 3
 
-@interface ViewController ()
+@interface ViewController ()<UIDynamicAnimatorDelegate>
 
-@property (strong , nonatomic) Grid * grid;
+@property (weak, nonatomic) IBOutlet UIView *gameView;
 @property (weak, nonatomic) IBOutlet UIButton *redealButton;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
-@property (weak, nonatomic) IBOutlet UIView *mainCardsView;
+@property (weak, nonatomic) IBOutlet UIButton *addCardButton;
+@property (strong , nonatomic) UIDynamicAnimator *animator;
+@property (strong , nonatomic) CardBehavior *cardBehavior;
 @end
 
 @implementation ViewController//Abstract class
@@ -28,19 +30,19 @@
 
 
 #pragma mark Initalizers
+
+
 - (void)viewDidLoad {
-  
   [super viewDidLoad];
-  
-  self.game = [[CardMatchingGame alloc] initWithCardCount:K_INITIAL_NUMBER_OF_CARDS
+  self.game = [[CardMatchingGame alloc] initWithCardCount:0
                                                 usingDeck:[self createDeck]];
   self.cardViews = [[NSMutableArray alloc] init];
   [self initGrid];
+  [self initAnimation];
   
-  for(int r = 0 ; r < self.grid.rowCount ; r++){
-    for(int c = 0 ; c < self.grid.columnCount ; c++){
-      [self initCardViewInGridAtRow:r atCol:c];
-    }
+  
+  for(int i = 0 ; i < kINITIAL_NUMBER_OF_CARDS/kNUMBER_OF_CARDS_TO_ADD ; i++){
+    [self addKCards:kNUMBER_OF_CARDS_TO_ADD];
   }
   [self updateUI];
 }
@@ -49,36 +51,32 @@
   self.grid = [[Grid alloc] init];
   self.grid.size = CGSizeMake(300, 500);
   self.grid.cellAspectRatio = 1;
-  self.grid.minimumNumberOfCells = 12;
-  NSLog(@"%@" , self.grid.description);
+  self.grid.minimumNumberOfCells = 10;
 }
 
--(void)initCardViewInGridAtRow:(int) r atCol:(int)c{
-  if([self.cardViews count] == K_INITIAL_NUMBER_OF_CARDS){
-    return;
-  }
-  UIView<CardViewProtocol> *  cardView = [[PlayingCardView alloc] init];
-  [self.cardViews addObject:cardView];
-  [self.mainCardsView addSubview:cardView];
-  UIGestureRecognizer * recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tap:)];
-  [cardView addGestureRecognizer:recognizer];
-  cardView.frame = [self.grid frameOfCellAtRow:r inColumn:c];
-  NSUInteger cardIndex = [self.cardViews indexOfObject:cardView];
-  Card * card = [self.game.cards objectAtIndex:cardIndex];
-  [self setCardView:cardView WithCard:card];
+- (void)initAnimation {
+  self.animator = [[UIDynamicAnimator alloc] initWithReferenceView:self.gameView];
+  self.cardBehavior = [[CardBehavior alloc] init];
+  [self.animator addBehavior: self.cardBehavior];
 }
 
 
 #pragma mark Actions
 
 - (IBAction)touchRedealButton:(UIButton * )sender{
-  [self viewDidLoad];
+
+  [self resetGame];
+}
+
+
+- (IBAction)touchAddCard:(id)sender {
+  [self addKCards:3];
 }
 
 -(void)tap:(UITapGestureRecognizer *)sender {
   UIView <CardViewProtocol>*  cardView = (UIView <CardViewProtocol> *)sender.view;
-  Card * card = [self getCardAssosiatedToCardView:cardView];
   NSUInteger chooseViewIndex = [self.cardViews indexOfObject:cardView];
+  Card * card = [self getCardAssosiatedToCardView:cardView];
   if(card.matched){
     NSLog(@"%@ is already matched" , card.description);
     return;
@@ -94,18 +92,49 @@
   for(UIView<CardViewProtocol> * cardView in self.cardViews){
     [self updateCardView:cardView];
   }
+  [self removeMatchedCardViews];
   self.scoreLabel.text = [NSString stringWithFormat:@"Score: %ld" , self.game.score];
 }
 
 - (void)updateCardView:(UIView <CardViewProtocol>*)cardView {
   Card * card = [self getCardAssosiatedToCardView:cardView];
   if(card.matched){
-    return;
+    cardView.matched = YES;
   }
   if(!card.chosen){
     cardView.chosen = NO;
   }
   
+}
+
+
+-(void)removeMatchedCardViews{
+  NSMutableArray<UIView<CardViewProtocol> *> *cardsToRemove = [self findCardViewsToRemove];
+  if([cardsToRemove count]){
+   for(UIView<CardViewProtocol> * cardView in cardsToRemove){
+     [self.cardBehavior removeItem:cardView];
+   }
+    [self animatedRemovingCards:cardsToRemove];
+  }
+}
+
+-(void)resetGame{
+  [self animatedRemovingCards:self.cardViews];
+  [self enableAddCardButton];
+  [self viewDidLoad];
+}
+
+-(void)animatedRemovingCards:(NSMutableArray *)cardsToRemove{
+  [UIView animateWithDuration:1.0 animations:^{
+    for(UIView *cardView in cardsToRemove){
+      int x = (arc4random()%(int)(self.gameView.bounds.size.width * 5)) - (int)self.gameView.bounds.size.width*2;
+      int y = self.gameView.bounds.size.height;
+      cardView.center = CGPointMake(x , -y);
+    }
+  }
+  completion:^(BOOL finished){
+    [cardsToRemove makeObjectsPerformSelector:@selector(removeFromSuperview)];
+  }];
 }
 
 #pragma mark Abstract methods
@@ -115,9 +144,56 @@
 }
 
 - (void)setCardView:(UIView <CardViewProtocol>*) cardView WithCard :(Card *)card{}
-  
+
 -(Card *)getCardAssosiatedToCardView:(UIView <CardViewProtocol>*)cardView{ //Abstract method
   return nil;
+}
+
+-(UIView<CardViewProtocol> *)createCardView{
+  return nil;
+}
+
+#pragma mark Private helper methods
+
+-(void)addKCards:(NSUInteger)numberOfCards{
+  for(int i = 0 ; i < numberOfCards ; i++){
+    [self addNewCardAtColumn:i];
+  }
+}
+
+- (void)addNewCardAtColumn:(int)c {
+  Card * card = [self.game addCardToGame];
+  if(!card){
+    [self disableAddCardButton];
+    return;
+  }
+  UIView<CardViewProtocol> * cardView = [self createCardView];
+  [self.cardViews addObject:cardView];
+  [self.gameView addSubview:cardView];
+  UIGestureRecognizer * recognizer = [[UITapGestureRecognizer alloc]
+                                      initWithTarget:self action:@selector(tap:)];
+  [cardView addGestureRecognizer:recognizer];
+  cardView.frame = [self.grid frameOfCellAtRow:kROW_INDEX_TO_ADD_CARD_AT inColumn:c];
+  [self setCardView:cardView WithCard:card];
+  [self.cardBehavior addItem:cardView];
+}
+
+-(NSMutableArray<UIView<CardViewProtocol> *> *)findCardViewsToRemove{
+  NSMutableArray * matchedCardArray = [NSMutableArray array];
+  for(UIView<CardViewProtocol> * cardView in self.cardViews){
+    if(cardView.matched)[matchedCardArray addObject:cardView];
+  }
+  return matchedCardArray;
+}
+
+-(void)enableAddCardButton{
+  self.addCardButton.enabled = YES;
+  [self.addCardButton setTitle:@"Add 3 cards"forState:UIControlStateNormal];
+}
+
+-(void)disableAddCardButton{
+  self.addCardButton.enabled = NO;
+  [self.addCardButton setTitle:@"Deck ended"forState:UIControlStateNormal];
 }
 
 @end

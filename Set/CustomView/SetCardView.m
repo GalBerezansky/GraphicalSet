@@ -47,6 +47,11 @@
   [self setNeedsDisplay];
 }
 
+-(void)setMatched:(BOOL)matched{
+  _matched = matched;
+  [self setNeedsDisplay];
+}
+
 #pragma mark - Drawing
 
 
@@ -176,8 +181,8 @@
 #define STRIPE_WIDTH 0.005
 
 -(void)fillPathWithStripes:(UIBezierPath *)path{
-  //CGContextRef context = UIGraphicsGetCurrentContext();
-  //CGContextSaveGState(context);
+  CGContextRef context = UIGraphicsGetCurrentContext();
+  CGContextSaveGState(context);
   [path addClip];
 
   UIBezierPath *stripes = [[UIBezierPath alloc] init];
@@ -193,7 +198,7 @@
   [[self getMatchingColorForColorEnum] setStroke];
   [stripes stroke];
   [path stroke];
-  //CGContextRestoreGState(context);
+  CGContextRestoreGState(context);
   
 }
 

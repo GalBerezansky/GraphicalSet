@@ -35,6 +35,9 @@
   if(card.chosen){
     cardView.chosen = YES;
   }
+  if(card.matched){
+    cardView.matched = YES;
+  }
 }
 
 
@@ -48,9 +51,9 @@
   return nil;
 }
 
-#pragma mark Private Helper Methods
-
-  
-
+-(UIView<CardViewProtocol> *)createCardView{
+  PlayingCardView * playingCardView = [[PlayingCardView alloc] initWithFrame: CGRectMake(0, 0, self.grid.cellSize.width, self.grid.cellSize.height)];
+  return playingCardView;
+}
 
 @end
