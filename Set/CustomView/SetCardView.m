@@ -241,4 +241,11 @@
           objectAtIndex:self.color];
 }
 
+
+#pragma mark - Animation
+
+-(void)animateFlip{
+    [UIView transitionWithView:self duration:0.2 options:UIViewAnimationOptionTransitionCrossDissolve animations:^{self.chosen = !self.chosen;} completion:nil];
+}
+
 @end

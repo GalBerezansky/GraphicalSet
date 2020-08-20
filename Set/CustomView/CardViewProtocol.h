@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic)BOOL matched;
 
+-(void)animateFlip;
+
 @end
 
 NS_ASSUME_NONNULL_END

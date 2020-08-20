@@ -45,7 +45,10 @@
     [self.cards removeObjectAtIndex:index];
   }
   return randomCard;
-  
+}
+
+-(BOOL)isEmpty{
+  return [[self cards] count] == 0;
 }
 
 @end

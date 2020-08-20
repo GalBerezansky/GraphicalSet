@@ -254,4 +254,11 @@
   return self;
 }
 
+
+#pragma mark - Animation
+
+-(void)animateFlip{
+    [UIView transitionWithView:self duration:0.2 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{self.chosen = !self.chosen;} completion:nil];
+}
+
 @end
