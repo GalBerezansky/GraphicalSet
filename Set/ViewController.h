@@ -23,14 +23,11 @@
 ///Creates the deck for the game (with random drawings).
 - (Deck *) createDeck; //Abstract method
 
-///Sets a cardView object with a card object.
--(void)setCardView:(UIView <CardViewProtocol>*) cardView WithCard :(Card *)card;
+-(UIView<CardViewProtocol> *)createCardViewFromCard :(Card *)card;
   
 ///returns the card objerct assosiated with the CardView object
 -(Card *)getCardAssosiatedToCardView:(UIView <CardViewProtocol>*)cardView;
 
-///Creates a new cardView object
--(UIView<CardViewProtocol> *)createCardView;
 
 
 @end

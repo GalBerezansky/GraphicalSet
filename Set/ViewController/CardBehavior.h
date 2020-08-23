@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface CardBehavior : UIDynamicBehavior
 
 -(void)addItem:(id<UIDynamicItem>) item;
+
 -(void)removeItem:(id<UIDynamicItem>) item;
 
 @end

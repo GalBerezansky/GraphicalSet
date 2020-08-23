@@ -16,13 +16,13 @@
 
 #pragma mark - Properties
 
-#define DEFAULT_FACE_CARD_SCALE_FACTOR 0.90
+#define kDEFAULT_FACE_CARD_SCALE_FACTOR 0.90
 
 @synthesize faceCardScaleFactor = _faceCardScaleFactor;
 
 - (CGFloat)faceCardScaleFactor
 {
-  if (!_faceCardScaleFactor) _faceCardScaleFactor = DEFAULT_FACE_CARD_SCALE_FACTOR;
+  if (!_faceCardScaleFactor) _faceCardScaleFactor = kDEFAULT_FACE_CARD_SCALE_FACTOR;
   return _faceCardScaleFactor;
 }
 
@@ -73,11 +73,11 @@
 
 #pragma mark - Drawing
 
-#define CORNER_FONT_STANDARD_HEIGHT 180.0
-#define CORNER_RADIUS 12.0
+#define kCORNER_FONT_STANDARD_HEIGHT 180.0
+#define kCORNER_RADIUS 12.0
 
-- (CGFloat)cornerScaleFactor { return self.bounds.size.height / CORNER_FONT_STANDARD_HEIGHT; }
-- (CGFloat)cornerRadius { return CORNER_RADIUS * [self cornerScaleFactor]; }
+- (CGFloat)cornerScaleFactor { return self.bounds.size.height / kCORNER_FONT_STANDARD_HEIGHT; }
+- (CGFloat)cornerRadius { return kCORNER_RADIUS * [self cornerScaleFactor]; }
 - (CGFloat)cornerOffset { return [self cornerRadius] / 3.0; }
 
 // Only override drawRect: if you perform custom drawing.

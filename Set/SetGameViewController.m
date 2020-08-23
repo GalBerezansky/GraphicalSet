@@ -13,6 +13,7 @@
 
 #define SetMatchMode 3
 
+typedef UIView<CardViewProtocol> CardView;
 @implementation SetGameViewController
 
 #pragma mark Instance methods
@@ -30,21 +31,11 @@
   
 }
 
-- (void)setCardView:(UIView <CardViewProtocol>*) cardView WithCard :(Card *)card {
-  SetCard * setCard = (SetCard *)card;
-  SetCardView * setCardView = (SetCardView *) cardView;
-  setCardView.shape = setCard.shape;
-  setCardView.numberOfShapes = setCard.numberOfShapes;
-  setCardView.shading = setCard.shading;
-  setCardView.color = setCard.color;
-  if(card.chosen){
-    cardView.chosen = YES;
-  }
-  if(card.matched){
-    cardView.matched = YES;
-  }
+-(CardView *)createCardViewFromCard :(Card *)card{
+   CardView *setCardView = [self createCardView];
+  [self setCardView:setCardView WithCard:card];
+  return setCardView;;
 }
-
 
 -(Card *)getCardAssosiatedToCardView:(UIView *)cardView{
   for(SetCard * setCard in self.game.cards){
@@ -59,6 +50,22 @@
   return nil;
 }
 
+#pragma mark Helper methods
+
+- (void)setCardView:(UIView <CardViewProtocol>*) cardView WithCard :(Card *)card {
+  SetCard * setCard = (SetCard *)card;
+  SetCardView * setCardView = (SetCardView *) cardView;
+  setCardView.shape = setCard.shape;
+  setCardView.numberOfShapes = setCard.numberOfShapes;
+  setCardView.shading = setCard.shading;
+  setCardView.color = setCard.color;
+  if(card.chosen){
+    cardView.chosen = YES;
+  }
+  if(card.matched){
+    cardView.matched = YES;
+  }
+}
 
 -(UIView<CardViewProtocol> *)createCardView{
   SetCardView * setCardView = [[SetCardView alloc] initWithFrame: CGRectMake(0, 0, self.grid.cellSize.width, self.grid.cellSize.height)];

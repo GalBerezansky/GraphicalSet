@@ -13,9 +13,16 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PlayingCardView : UIView<CardViewProtocol>
 
+///An int representation of the rank.
 @property (nonatomic) NSUInteger rank;
+
+///A string representation of the suit (for example ♥️).
 @property (strong, nonatomic) NSString *suit;
+
+///Determines if the card is choosen by the user or not.
 @property (nonatomic) BOOL chosen;
+
+///Determines if the card was already matched with other cards.
 @property (nonatomic) BOOL matched;
 
 @end

@@ -36,7 +36,7 @@ NS_ASSUME_NONNULL_BEGIN
 ///The mode of the game (2- cars match or 3-cards match)
 @property (nonatomic) NSInteger matchMode;
 
-
+///The deck we draw our cards from
 @property (strong,nonatomic) Deck * deck;
 
 

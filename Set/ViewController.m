@@ -11,6 +11,7 @@
 #import "CardBehavior.h"
 
 #define kINITIAL_NUMBER_OF_CARDS 9
+#define kINITIAL_ROW_TO_ADD_CARDS_AT 9
 #define kNUMBER_OF_CARDS_TO_ADD 3
 #define kEMPTY_DECK 0
 #define kMAX_AMOUNT_OF_CARDS 21
@@ -179,7 +180,7 @@ typedef UIView<CardViewProtocol> CardView;
 -(void)animatedRemovingCards:(NSMutableArray *)cardsToRemove{
   [UIView animateWithDuration:1.7 animations:^{
     for(CardView *cardView in cardsToRemove){
-      int x = (arc4random()%(int)(self.gameView.bounds.size.width * 5));
+      int x = (arc4random()%(int)(self.gameView.bounds.size.width * 10));
       int y = self.gameView.bounds.size.height;
       cardView.center = CGPointMake(x , -y);
     }
@@ -188,11 +189,6 @@ typedef UIView<CardViewProtocol> CardView;
     [cardsToRemove makeObjectsPerformSelector:@selector(removeFromSuperview)];
   }];
 }
-
-
-
-
-
 
 #pragma mark UI_Update
 
@@ -261,25 +257,11 @@ typedef UIView<CardViewProtocol> CardView;
   if(!card || [[self getActiveCardViews] count] == kMAX_AMOUNT_OF_CARDS){
     return;
   }
-  CardView * cardView = [self createCardView];
+  CardView * cardView = [self createCardViewFromCard:card];
   [self initCardView:cardView];
-  cardView.frame = [self.grid frameOfCellAtRow:9 inColumn:[self findShortestColumn]];
-  [self setCardView:cardView WithCard:card];
+  cardView.frame = [self.grid frameOfCellAtRow:kINITIAL_ROW_TO_ADD_CARDS_AT inColumn:[self findShortestColumn]];
+  //[self setCardView:cardView WithCard:card];
   [self.cardBehavior addItem:cardView];
-}
-
--(void)initCardView:(CardView *)cardView{
-  [self.cardViews addObject:cardView];
-  [self.gameView addSubview:cardView];
-  UIGestureRecognizer * tapRecognizer = [[UITapGestureRecognizer alloc]
-                                      initWithTarget:self action:@selector(tap:)];
-  [cardView addGestureRecognizer:tapRecognizer];
-  UIGestureRecognizer * pinchRecognizer = [[UIPinchGestureRecognizer alloc]
-                                      initWithTarget:self action:@selector(pinch:)];
-  [cardView addGestureRecognizer:pinchRecognizer];
-  UIGestureRecognizer * panRecognizer =  [[UIPanGestureRecognizer alloc]
-                                       initWithTarget:self action:@selector(pan:)];
-  [cardView addGestureRecognizer:panRecognizer];
 }
 
 -(int)findShortestColumn{
@@ -301,6 +283,24 @@ typedef UIView<CardViewProtocol> CardView;
     }
   }
   return shortestColumn;
+}
+
+-(void)initCardView:(CardView *)cardView{
+  [self.cardViews addObject:cardView];
+  [self.gameView addSubview:cardView];
+  [self initGesturesForCardView:cardView];
+}
+
+- (void)initGesturesForCardView:(CardView *)cardView {
+  UIGestureRecognizer * tapRecognizer = [[UITapGestureRecognizer alloc]
+                                         initWithTarget:self action:@selector(tap:)];
+  [cardView addGestureRecognizer:tapRecognizer];
+  UIGestureRecognizer * pinchRecognizer = [[UIPinchGestureRecognizer alloc]
+                                           initWithTarget:self action:@selector(pinch:)];
+  [cardView addGestureRecognizer:pinchRecognizer];
+  UIGestureRecognizer * panRecognizer =  [[UIPanGestureRecognizer alloc]
+                                          initWithTarget:self action:@selector(pan:)];
+  [cardView addGestureRecognizer:panRecognizer];
 }
 
 -(NSMutableArray<CardView *> *)getActiveCardViews{
@@ -327,18 +327,12 @@ typedef UIView<CardViewProtocol> CardView;
   return nil;
 }
 
-- (void)setCardView:(UIView <CardViewProtocol>*) cardView WithCard :(Card *)card{}
+-(CardView*)createCardViewFromCard :(Card *)card{
+  return nil;
+}
 
 -(Card *)getCardAssosiatedToCardView:(UIView <CardViewProtocol>*)cardView{ //Abstract method
   return nil;
 }
-
--(CardView *)createCardView{
-  return nil;
-}
-
-#pragma mark Helper
-
-
 
 @end

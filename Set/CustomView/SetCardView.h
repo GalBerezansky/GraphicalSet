@@ -26,8 +26,10 @@ NS_ASSUME_NONNULL_BEGIN
 ///A enum representation of the color .
 @property (nonatomic , assign) Color color;
 
+///Determines if the card is choosen by the user or not.
 @property (nonatomic) BOOL chosen;
 
+///Determines if the card was already matched with other cards.
 @property (nonatomic) BOOL matched;
 
 @end

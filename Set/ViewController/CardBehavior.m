@@ -19,10 +19,12 @@
 
 @implementation CardBehavior
 
+#define kMAGNITUDE 0.9
+
 -(instancetype)init{
   self = [super init];
   self.gravity = [[UIGravityBehavior alloc] init];
-  self.gravity.magnitude = 0.9;
+  self.gravity.magnitude = kMAGNITUDE;
   self.gravity.gravityDirection = CGVectorMake(0, -1);
   self.collider = [[UICollisionBehavior alloc] init];
   self.collider.translatesReferenceBoundsIntoBoundary = YES;

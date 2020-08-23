@@ -8,10 +8,6 @@
 
 #import "SetCardView.h"
 
-#define DEFAULT_FACE_CARD_SCALE_FACTOR 0.90
-
-
-
 @interface SetCardView()
 
 @property (nonatomic,strong) NSArray * pointsArray;
@@ -55,11 +51,11 @@
 #pragma mark - Drawing
 
 
-#define CORNER_FONT_STANDARD_HEIGHT 180.0
-#define CORNER_RADIUS 12.0
+#define kCORNER_FONT_STANDARD_HEIGHT 180.0
+#define kCORNER_RADIUS 12.0
 
-- (CGFloat)cornerScaleFactor { return self.bounds.size.height / CORNER_FONT_STANDARD_HEIGHT; }
-- (CGFloat)cornerRadius { return CORNER_RADIUS * [self cornerScaleFactor]; }
+- (CGFloat)cornerScaleFactor { return self.bounds.size.height / kCORNER_FONT_STANDARD_HEIGHT; }
+- (CGFloat)cornerRadius { return kCORNER_RADIUS * [self cornerScaleFactor]; }
 - (CGFloat)cornerOffset { return [self cornerRadius] / 3.0; }
 
 - (void)drawRect:(CGRect)rect
@@ -100,13 +96,13 @@
 }
 
 
-#define DIAMOND_WIDTH 0.24
-#define DIAMOND_HEIGHT 0.8
-#define DIAMOND_STROKE_WIDTH 0.01
+#define kDIAMOND_WIDTH 0.24
+#define kDIAMOND_HEIGHT 0.8
+#define kDIAMOND_STROKE_WIDTH 0.01
 
 -(void)drawDiamondAtPoint:(CGPoint)point{
-  CGFloat dx = self.bounds.size.width * DIAMOND_WIDTH / 2.0;
-  CGFloat dy = self.bounds.size.height * DIAMOND_HEIGHT/ 2.0;
+  CGFloat dx = self.bounds.size.width * kDIAMOND_WIDTH / 2.0;
+  CGFloat dy = self.bounds.size.height * kDIAMOND_HEIGHT/ 2.0;
   UIBezierPath *path = [[UIBezierPath alloc] init];
   float x = point.x;
   float y = point.y;
@@ -115,7 +111,7 @@
   [path addLineToPoint:CGPointMake(x ,y + dy)];
   [path addLineToPoint:CGPointMake(x - dx,y)];
   [path addLineToPoint:CGPointMake(x ,y - dy)];
-  path.lineWidth = self.bounds.size.width * DIAMOND_STROKE_WIDTH;
+  path.lineWidth = self.bounds.size.width * kDIAMOND_STROKE_WIDTH;
   [path closePath];
   [self setShadingToPath:path];
 }
@@ -125,21 +121,21 @@
   CGRect rect= CGRectMake(point.x - self.bounds.size.width/8, point.y - self.bounds.size.height/3,
                           self.bounds.size.width/4, self.bounds.size.height/1.5);
   UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:rect];
-  path.lineWidth = self.bounds.size.width * DIAMOND_STROKE_WIDTH;
+  path.lineWidth = self.bounds.size.width * kDIAMOND_STROKE_WIDTH;
   [self setShadingToPath:path];
 }
 
 
-#define SQUIGGLE_WIDTH 0.12
-#define SQUIGGLE_HEIGHT 0.5
-#define SQUIGGLE_FACTOR 0.8
-#define SQUIGLE_STROKE_WIDTH 0.01
+#define kSQUIGGLE_WIDTH 0.12
+#define kSQUIGGLE_HEIGHT 0.5
+#define kSQUIGGLE_FACTOR 0.8
+#define kSQUIGLE_STROKE_WIDTH 0.01
  
 - (void)drawSquiggleAtPoint:(CGPoint)point {
-  CGFloat dx = self.bounds.size.width * SQUIGGLE_WIDTH / 2.0;
-  CGFloat dy = self.bounds.size.height * SQUIGGLE_HEIGHT / 2.0;
-  CGFloat dsqx = dx * SQUIGGLE_FACTOR;
-  CGFloat dsqy = dy * SQUIGGLE_FACTOR;
+  CGFloat dx = self.bounds.size.width * kSQUIGGLE_WIDTH / 2.0;
+  CGFloat dy = self.bounds.size.height * kSQUIGGLE_HEIGHT / 2.0;
+  CGFloat dsqx = dx * kSQUIGGLE_FACTOR;
+  CGFloat dsqy = dy * kSQUIGGLE_FACTOR;
   
   UIBezierPath *path = [[UIBezierPath alloc] init];
   [path moveToPoint:CGPointMake(point.x - dx, point.y - dy)];
@@ -153,7 +149,7 @@
   [path addCurveToPoint:CGPointMake(point.x - dx, point.y - dy)
           controlPoint1:CGPointMake(point.x - dx - dsqx, point.y + dy - dsqy)
           controlPoint2:CGPointMake(point.x - dx + dsqx, point.y - dy + dsqy)];
-  path.lineWidth = self.bounds.size.width * SQUIGLE_STROKE_WIDTH;
+  path.lineWidth = self.bounds.size.width * kSQUIGLE_STROKE_WIDTH;
   [path closePath];
   [self setShadingToPath:path];
 }
@@ -178,7 +174,8 @@
   }
 }
 
-#define STRIPE_WIDTH 0.005
+#define kSTRIPE_WIDTH 0.005
+#define kNUMBER_OF_STRIPES 40
 
 -(void)fillPathWithStripes:(UIBezierPath *)path{
   CGContextRef context = UIGraphicsGetCurrentContext();
@@ -186,7 +183,7 @@
   [path addClip];
 
   UIBezierPath *stripes = [[UIBezierPath alloc] init];
-  int numberOfStripes = 40;
+  int numberOfStripes = kNUMBER_OF_STRIPES;
   for (int i = 0; i < numberOfStripes ;i++) {
     float currentX = path.bounds.origin.x;
     float currentY = path.bounds.origin.y + path.bounds.size.height*i/numberOfStripes;
@@ -194,7 +191,7 @@
     [stripes moveToPoint:CGPointMake(currentX , currentY)];
     [stripes addLineToPoint:CGPointMake(currentX + dx , currentY)];
   }
-  stripes.lineWidth = self.bounds.size.width * STRIPE_WIDTH;
+  stripes.lineWidth = self.bounds.size.width * kSTRIPE_WIDTH;
   [[self getMatchingColorForColorEnum] setStroke];
   [stripes stroke];
   [path stroke];
