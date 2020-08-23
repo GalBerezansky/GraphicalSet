@@ -15,23 +15,11 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="esa-XJ-wur">
-                                <rect key="frame" x="186" y="867" width="42" height="21"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k5g-RZ-Xzi">
-                                <rect key="frame" x="6" y="782" width="84" height="31"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="LdE-eH-9ME">
-                                <rect key="frame" x="37" y="44" width="322" height="994"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LdE-eH-9ME">
+                                <rect key="frame" x="58" y="39" width="336" height="1095"/>
                                 <subviews>
                                     <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ltu-wL-Ufo">
-                                        <rect key="frame" x="91" y="736" width="105" height="36"/>
+                                        <rect key="frame" x="102" y="745" width="105" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="Add 3 cards">
                                             <color key="titleColor" red="0.0048598507420000003" green="0.096086271109999996" blue="0.57499289509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -40,8 +28,14 @@
                                             <action selector="touchAddCard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="t5J-4U-rgw"/>
                                         </connections>
                                     </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="k5g-RZ-Xzi">
+                                        <rect key="frame" x="-46" y="751" width="143" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
                                     <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="748" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="e1l-c7-sTu">
-                                        <rect key="frame" x="271" y="736" width="72" height="36"/>
+                                        <rect key="frame" x="280" y="745" width="72" height="36"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="20"/>
                                         <state key="normal" title="Re-Deal">
                                             <color key="titleColor" red="0.0048598507420000003" green="0.096086271109999996" blue="0.57499289509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -53,28 +47,27 @@
                                 </subviews>
                                 <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstItem="Ltu-wL-Ufo" firstAttribute="baseline" secondItem="e1l-c7-sTu" secondAttribute="baseline" id="0qf-gu-SUh"/>
-                                    <constraint firstAttribute="bottom" secondItem="Ltu-wL-Ufo" secondAttribute="bottom" constant="222" id="CZQ-H3-ihP"/>
-                                    <constraint firstAttribute="trailing" secondItem="e1l-c7-sTu" secondAttribute="trailing" constant="-21" id="Qte-bj-HuU"/>
-                                    <constraint firstItem="Ltu-wL-Ufo" firstAttribute="leading" secondItem="LdE-eH-9ME" secondAttribute="leading" constant="91" id="lBT-pN-SiT"/>
-                                    <constraint firstItem="e1l-c7-sTu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ltu-wL-Ufo" secondAttribute="trailing" constant="8" symbolic="YES" id="xX2-3X-Hbi"/>
+                                    <constraint firstItem="Ltu-wL-Ufo" firstAttribute="leading" secondItem="k5g-RZ-Xzi" secondAttribute="trailing" constant="5" id="8VJ-M6-Phv"/>
+                                    <constraint firstAttribute="trailing" secondItem="e1l-c7-sTu" secondAttribute="trailing" constant="-16" id="8gY-JN-WB6"/>
+                                    <constraint firstItem="Ltu-wL-Ufo" firstAttribute="width" secondItem="e1l-c7-sTu" secondAttribute="width" multiplier="1.45833" id="IMe-1d-Pkg"/>
+                                    <constraint firstItem="k5g-RZ-Xzi" firstAttribute="baseline" secondItem="e1l-c7-sTu" secondAttribute="baseline" id="MuA-kJ-bYQ"/>
+                                    <constraint firstItem="k5g-RZ-Xzi" firstAttribute="leading" secondItem="LdE-eH-9ME" secondAttribute="leading" constant="-46" id="SC2-bN-kBk"/>
+                                    <constraint firstItem="k5g-RZ-Xzi" firstAttribute="top" secondItem="LdE-eH-9ME" secondAttribute="top" constant="751" id="TEs-Wb-b9a"/>
+                                    <constraint firstItem="Ltu-wL-Ufo" firstAttribute="width" secondItem="k5g-RZ-Xzi" secondAttribute="width" multiplier="1.43836" constant="-100.68493150684932" id="jv3-EM-SkO"/>
+                                    <constraint firstItem="e1l-c7-sTu" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Ltu-wL-Ufo" secondAttribute="trailing" constant="8" symbolic="YES" id="lrA-Dk-TwK"/>
+                                    <constraint firstItem="k5g-RZ-Xzi" firstAttribute="baseline" secondItem="Ltu-wL-Ufo" secondAttribute="baseline" id="nZ5-GD-IaA"/>
+                                    <constraint firstItem="Ltu-wL-Ufo" firstAttribute="height" secondItem="e1l-c7-sTu" secondAttribute="height" id="sL4-eP-oLe"/>
+                                    <constraint firstItem="Ltu-wL-Ufo" firstAttribute="height" secondItem="k5g-RZ-Xzi" secondAttribute="height" multiplier="1.5" id="ujc-XL-44O"/>
                                 </constraints>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="0.0" green="0.56284224989999998" blue="0.31881666180000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <gestureRecognizers/>
                         <constraints>
-                            <constraint firstItem="k5g-RZ-Xzi" firstAttribute="height" secondItem="Ltu-wL-Ufo" secondAttribute="height" multiplier="0.861111" id="FIJ-b2-h8C"/>
-                            <constraint firstItem="esa-XJ-wur" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="FIj-Sv-TEK"/>
-                            <constraint firstItem="k5g-RZ-Xzi" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="6" id="J4d-zA-nSl"/>
-                            <constraint firstItem="k5g-RZ-Xzi" firstAttribute="height" secondItem="e1l-c7-sTu" secondAttribute="height" multiplier="0.861111" id="KvK-HS-nL4"/>
-                            <constraint firstItem="LdE-eH-9ME" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="65" id="T13-sj-9wL"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="k5g-RZ-Xzi" secondAttribute="trailing" constant="324" id="V8n-NX-rpD"/>
-                            <constraint firstItem="esa-XJ-wur" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="823" id="fzm-uS-FZB"/>
-                            <constraint firstAttribute="bottom" secondItem="LdE-eH-9ME" secondAttribute="bottom" constant="-142" id="mgy-Aq-2b7"/>
-                            <constraint firstItem="k5g-RZ-Xzi" firstAttribute="bottom" secondItem="6Tk-OE-BBY" secondAttribute="bottom" id="rF5-s4-urC"/>
-                            <constraint firstItem="LdE-eH-9ME" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="rrt-Zc-Wrm"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="LdE-eH-9ME" secondAttribute="trailing" constant="27" id="s2q-mF-pqT"/>
+                            <constraint firstItem="LdE-eH-9ME" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="58" id="T13-sj-9wL"/>
+                            <constraint firstAttribute="bottom" secondItem="LdE-eH-9ME" secondAttribute="bottom" constant="-238" id="mgy-Aq-2b7"/>
+                            <constraint firstItem="LdE-eH-9ME" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="-5" id="rrt-Zc-Wrm"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="LdE-eH-9ME" secondAttribute="trailing" constant="20" id="s2q-mF-pqT"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -89,7 +82,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4680" y="-141"/>
+            <point key="canvasLocation" x="3747.826086956522" y="-885.26785714285711"/>
         </scene>
         <!--Set-->
         <scene sceneID="QdG-eh-seR">
@@ -99,55 +92,72 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="6fW-Bf-UQS">
-                                <rect key="frame" x="155" y="779.5" width="105" height="36"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Add 3 cards">
-                                    <color key="titleColor" red="0.0048598507420000003" green="0.096086271109999996" blue="0.57499289509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="touchAddCard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="uQr-tA-E5X"/>
-                                </connections>
-                            </button>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Score: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Yw-5Q-zxZ">
-                                <rect key="frame" x="8" y="782" width="73" height="31"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="748" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="X0K-30-4OM">
-                                <rect key="frame" x="333" y="779" width="72" height="36"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
-                                <state key="normal" title="Re-Deal">
-                                    <color key="titleColor" red="0.0048598507420000003" green="0.096086271109999996" blue="0.57499289509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                </state>
-                                <connections>
-                                    <action selector="touchRedealButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dIR-x1-JlM"/>
-                                </connections>
-                            </button>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Ejb-BD-WEe">
+                                <rect key="frame" x="58" y="44" width="317" height="1095"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="249" horizontalCompressionResistancePriority="748" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="hVA-fJ-gqI">
+                                        <rect key="frame" x="280" y="740" width="72" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="Re-Deal">
+                                            <color key="titleColor" red="0.0048598507420000003" green="0.096086271109999996" blue="0.57499289509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="touchRedealButton:" destination="JrA-S0-G9W" eventType="touchUpInside" id="83D-Qg-AYg"/>
+                                            <action selector="touchRedealButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="BQB-vP-KmW"/>
+                                        </connections>
+                                    </button>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Score: 0" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="y3o-h7-EnC">
+                                        <rect key="frame" x="-47" y="746" width="139" height="24"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="v8C-0x-H8I">
+                                        <rect key="frame" x="103" y="740" width="105" height="36"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                        <state key="normal" title="Add 3 cards">
+                                            <color key="titleColor" red="0.0048598507420000003" green="0.096086271109999996" blue="0.57499289509999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="touchAddCard:" destination="JrA-S0-G9W" eventType="touchUpInside" id="o0D-XC-GBB"/>
+                                            <action selector="touchAddCard:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vkj-Iz-S6c"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="bottom" secondItem="v8C-0x-H8I" secondAttribute="bottom" constant="319" id="9tt-nB-onP"/>
+                                    <constraint firstItem="hVA-fJ-gqI" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="v8C-0x-H8I" secondAttribute="trailing" constant="8" symbolic="YES" id="C4e-4l-tkx"/>
+                                    <constraint firstItem="v8C-0x-H8I" firstAttribute="leading" secondItem="Ejb-BD-WEe" secondAttribute="leading" constant="103" id="JbB-zB-1uU"/>
+                                    <constraint firstItem="v8C-0x-H8I" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="y3o-h7-EnC" secondAttribute="trailing" constant="8" symbolic="YES" id="N6r-3c-IwW"/>
+                                    <constraint firstAttribute="trailing" secondItem="hVA-fJ-gqI" secondAttribute="trailing" constant="-35" id="SWP-Xn-bSc"/>
+                                    <constraint firstItem="v8C-0x-H8I" firstAttribute="baseline" secondItem="hVA-fJ-gqI" secondAttribute="baseline" id="VfJ-PD-3X0"/>
+                                    <constraint firstItem="v8C-0x-H8I" firstAttribute="baseline" secondItem="y3o-h7-EnC" secondAttribute="baseline" id="qIY-RV-AQV"/>
+                                    <constraint firstItem="y3o-h7-EnC" firstAttribute="leading" secondItem="Ejb-BD-WEe" secondAttribute="leading" constant="-47" id="wqp-Xe-RSk"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemPurpleColor" red="0.68627450980000004" green="0.32156862749999998" blue="0.87058823529999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="X0K-30-4OM" secondAttribute="trailing" constant="9" id="4KJ-sm-0Ug"/>
-                            <constraint firstItem="6fW-Bf-UQS" firstAttribute="leading" secondItem="0Yw-5Q-zxZ" secondAttribute="trailing" constant="74" id="6NR-Cc-8I1"/>
-                            <constraint firstItem="6fW-Bf-UQS" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="edq-il-cIq" secondAttribute="leading" symbolic="YES" id="HjD-sj-Lpt"/>
-                            <constraint firstItem="0Yw-5Q-zxZ" firstAttribute="height" secondItem="X0K-30-4OM" secondAttribute="height" multiplier="0.861111" id="Hwv-tb-wD5"/>
-                            <constraint firstItem="0Yw-5Q-zxZ" firstAttribute="height" secondItem="6fW-Bf-UQS" secondAttribute="height" multiplier="0.861111" id="WhD-31-bNc"/>
-                            <constraint firstItem="X0K-30-4OM" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6fW-Bf-UQS" secondAttribute="trailing" constant="8" symbolic="YES" id="ZrT-7g-xIk"/>
-                            <constraint firstItem="6fW-Bf-UQS" firstAttribute="baseline" secondItem="X0K-30-4OM" secondAttribute="baseline" id="nHo-0h-ex1"/>
-                            <constraint firstItem="edq-il-cIq" firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="0Yw-5Q-zxZ" secondAttribute="trailing" symbolic="YES" id="pCx-7N-LAs"/>
-                            <constraint firstItem="0Yw-5Q-zxZ" firstAttribute="leading" secondItem="edq-il-cIq" secondAttribute="leading" constant="8" id="wyi-4t-u2I"/>
-                            <constraint firstItem="0Yw-5Q-zxZ" firstAttribute="bottom" secondItem="edq-il-cIq" secondAttribute="bottom" id="xgA-F2-edF"/>
-                            <constraint firstItem="0Yw-5Q-zxZ" firstAttribute="centerY" secondItem="6fW-Bf-UQS" secondAttribute="centerY" id="y9o-zn-55O"/>
+                            <constraint firstItem="edq-il-cIq" firstAttribute="trailing" secondItem="Ejb-BD-WEe" secondAttribute="trailing" constant="39" id="Ccz-hP-IE3"/>
+                            <constraint firstAttribute="bottom" secondItem="Ejb-BD-WEe" secondAttribute="bottom" constant="-243" id="hVd-HZ-C1G"/>
+                            <constraint firstItem="Ejb-BD-WEe" firstAttribute="top" secondItem="edq-il-cIq" secondAttribute="top" id="kp2-0S-bQk"/>
+                            <constraint firstItem="Ejb-BD-WEe" firstAttribute="leading" secondItem="edq-il-cIq" secondAttribute="leading" constant="58" id="lT6-EX-MFI"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="edq-il-cIq"/>
                     </view>
                     <tabBarItem key="tabBarItem" title="Set" id="QIh-7M-dMc"/>
                     <navigationItem key="navigationItem" id="XWS-k5-c4d"/>
+                    <connections>
+                        <outlet property="addCardButton" destination="v8C-0x-H8I" id="ZF0-cF-Qrj"/>
+                        <outlet property="gameView" destination="Ejb-BD-WEe" id="1Na-JS-SPA"/>
+                        <outlet property="redealButton" destination="hVA-fJ-gqI" id="rJl-pw-eh4"/>
+                        <outlet property="scoreLabel" destination="y3o-h7-EnC" id="7pR-1o-9Ku"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="LYv-I3-RPq" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="4680" y="494"/>
+            <point key="canvasLocation" x="3747.826086956522" y="-158.03571428571428"/>
         </scene>
         <!--Tab Bar Controller-->
         <scene sceneID="MIb-U8-KxF">
