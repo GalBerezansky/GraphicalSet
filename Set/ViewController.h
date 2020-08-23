@@ -17,16 +17,19 @@
 
 ///Holds the object that runs the game.
 @property (strong , nonatomic) CardMatchingGame * game;
-@property (strong , nonatomic) NSMutableArray<UIView *> * cardViews;
+
 @property (strong , nonatomic) Grid * grid;
 
 ///Creates the deck for the game (with random drawings).
 - (Deck *) createDeck; //Abstract method
 
+///Sets a cardView object with a card object.
 -(void)setCardView:(UIView <CardViewProtocol>*) cardView WithCard :(Card *)card;
   
+///returns the card objerct assosiated with the CardView object
 -(Card *)getCardAssosiatedToCardView:(UIView <CardViewProtocol>*)cardView;
 
+///Creates a new cardView object
 -(UIView<CardViewProtocol> *)createCardView;
 
 

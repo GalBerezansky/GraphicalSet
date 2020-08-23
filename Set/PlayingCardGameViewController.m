@@ -40,7 +40,6 @@
   }
 }
 
-
 -(Card *)getCardAssosiatedToCardView:(UIView *)cardView{
   for(PlayingCard * playCard in self.game.cards){
     PlayingCardView * playCardView = (PlayingCardView * )cardView;

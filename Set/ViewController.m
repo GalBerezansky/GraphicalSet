@@ -14,18 +14,24 @@
 #define kNUMBER_OF_CARDS_TO_ADD 3
 #define kEMPTY_DECK 0
 #define kMAX_AMOUNT_OF_CARDS 21
+#define kGRID_WIDTH 300
+#define kGRID_HEIGHT 500
 
 typedef UIView<CardViewProtocol> CardView;
 
 @interface ViewController ()
 
 @property (weak, nonatomic) IBOutlet UIView *gameView;
+@property (strong , nonatomic) NSMutableArray<UIView *> * cardViews;
 @property (weak, nonatomic) IBOutlet UIButton *redealButton;
 @property (weak, nonatomic) IBOutlet UILabel *scoreLabel;
 @property (weak, nonatomic) IBOutlet UIButton *addCardButton;
 @property (strong , nonatomic) UIDynamicAnimator *animator;
 @property (strong , nonatomic) CardBehavior *cardBehavior;
-@property (strong , nonatomic) UIAttachmentBehavior* attachment;
+@property (strong , nonatomic) UIAttachmentBehavior *attachment;
+@property (strong , nonatomic) CardView *attachingCard;
+@property  (strong , nonatomic) NSMutableArray<NSValue *> * originalPositions;
+@property (nonatomic) BOOL isStacked;
 @end
 
 @implementation ViewController//Abstract class
@@ -40,6 +46,7 @@ typedef UIView<CardViewProtocol> CardView;
   [super viewDidLoad];
   self.game = [[CardMatchingGame alloc] initWithCardCount:kEMPTY_DECK
                                                 usingDeck:[self createDeck]];
+  self.isStacked = NO;
   self.cardViews = [NSMutableArray array];
   [self initGrid];
   [self initAnimation];
@@ -52,7 +59,7 @@ typedef UIView<CardViewProtocol> CardView;
 
 - (void)initGrid {
   self.grid = [[Grid alloc] init];
-  self.grid.size = CGSizeMake(300, 500);
+  self.grid.size = CGSizeMake(kGRID_WIDTH, kGRID_HEIGHT);
   self.grid.cellAspectRatio = 1;
   self.grid.minimumNumberOfCells = kINITIAL_NUMBER_OF_CARDS;
 }
@@ -65,43 +72,127 @@ typedef UIView<CardViewProtocol> CardView;
 
 -(void)resetGame{
   [self animatedRemovingCards:self.cardViews];
-  [self enableAddCardButton];
+
   [self viewDidLoad];
 }
 
-
--(void)viewDidLayoutSubviews{
-
-  //[self rotateGame];
-}
-
-
--(void)rotateGame{
-//  if(self.grid.minimumNumberOfCells == 9)
-//    self.grid.minimumNumberOfCells = 21;
-//  [self updateUI];
-  
-}
-
-#pragma mark Button actions
+#pragma mark Buttons
 
 - (IBAction)touchRedealButton:(UIButton * )sender{
   [self resetGame];
 }
 
-
 - (IBAction)touchAddCard:(id)sender {
   [self addThreeCards];
 }
 
+#pragma mark Actions
+
+
+
+
 -(void)tap:(UITapGestureRecognizer *)sender {
-  UIView <CardViewProtocol>*  cardView = (UIView <CardViewProtocol> *)sender.view;
+  CardView*  cardView = (CardView *)sender.view;
+  if(self.isStacked){
+    [self tapWhenStacked : cardView];
+  }
+  else{
+    [self tapCard: cardView];
+  }
+}
+
+- (void)tapWhenStacked:(CardView *)cardView {
+  self.isStacked = NO;
+  [self animateCardsReturnToPlace:cardView.center];
+  [self.animator addBehavior:self.cardBehavior];
+  [self updateUI];
+}
+
+- (void)tapCard:(CardView *)cardView {
   Card * card = [self getCardAssosiatedToCardView:cardView];
   NSUInteger chooseViewIndex = [self.game.cards indexOfObject:card];
   [cardView animateFlip];
   [self.game chooseCardAtIndex:chooseViewIndex];
   [self updateUI];
 }
+
+
+-(void)pinch:(UIPinchGestureRecognizer *)sender {
+  if(self.isStacked){ //if already stacked no need for pinch gesture
+    return;
+  }
+  CGPoint gestutePoint = [sender locationInView:self.gameView];
+  if(sender.state == UIGestureRecognizerStateBegan){
+    self.isStacked = YES;
+    [self.animator removeBehavior:self.cardBehavior];
+    [self animatePinchGroupCards:gestutePoint];
+  }
+  [self updateUI];
+}
+
+-(void)pan:(UIPanGestureRecognizer *)sender{
+  if(!self.isStacked){
+    return;
+  }
+  CGPoint gesturePoint = [sender locationInView:self.view];
+  if (sender.state == UIGestureRecognizerStateBegan) {
+    [self animateMovingStackToPoint:gesturePoint];
+  } else if (sender.state == UIGestureRecognizerStateChanged) {
+    [self animateMovingStackToPoint:gesturePoint];
+  }
+  [self updateUI];
+}
+
+#pragma mark Animation
+
+- (void)animatePinchGroupCards:(CGPoint)point {
+  self.originalPositions = [NSMutableArray array];
+  [UIView animateWithDuration:1 animations:^{
+    for(CardView * cardView in [self getActiveCardViews]){
+      [self.originalPositions addObject:[NSValue valueWithCGPoint:cardView.center]];
+      cardView.center = point;
+    }
+  }
+  ];
+}
+
+- (void)animateCardsReturnToPlace:(CGPoint)point {
+  [UIView animateWithDuration:1 animations:^{
+    for(CardView * cardView in [self getActiveCardViews]){
+      NSUInteger index = [[self getActiveCardViews] indexOfObject:cardView];
+      cardView.center = [[self.originalPositions objectAtIndex:index] CGPointValue];
+    }
+  }
+  ];
+}
+
+-(void)animateMovingStackToPoint:(CGPoint)point{
+  [UIView animateWithDuration:1 animations:^{
+    for(CardView * cardView in [self getActiveCardViews]){
+      [self.originalPositions addObject:[NSValue valueWithCGPoint:cardView.center]];
+      cardView.center = point;
+    }
+  }
+  ];
+}
+
+-(void)animatedRemovingCards:(NSMutableArray *)cardsToRemove{
+  [UIView animateWithDuration:1.7 animations:^{
+    for(CardView *cardView in cardsToRemove){
+      int x = (arc4random()%(int)(self.gameView.bounds.size.width * 5));
+      int y = self.gameView.bounds.size.height;
+      cardView.center = CGPointMake(x , -y);
+    }
+  }
+                   completion:^(BOOL finished){
+    [cardsToRemove makeObjectsPerformSelector:@selector(removeFromSuperview)];
+  }];
+}
+
+
+
+
+
 
 #pragma mark UI_Update
 
@@ -116,12 +207,10 @@ typedef UIView<CardViewProtocol> CardView;
 }
 
 - (void)updateCardView:(UIView <CardViewProtocol>*)cardView {
-
   Card * card = [self getCardAssosiatedToCardView:cardView];
   cardView.matched = card.matched;
   cardView.chosen = card.chosen;
 }
-
 
 -(void)removeMatchedCardViews{
   NSMutableArray<CardView*> *cardsToRemove = [self findCardViewsToRemove];
@@ -133,16 +222,8 @@ typedef UIView<CardViewProtocol> CardView;
   }
 }
 
--(NSMutableArray<CardView *> *)findCardViewsToRemove{
-  NSMutableArray * matchedCardArray = [NSMutableArray array];
-  for(CardView *cardView in self.cardViews){
-    if(cardView.matched)[matchedCardArray addObject:cardView];
-  }
-  return matchedCardArray;
-}
-
 -(void)updateCardButton{
-  if([[self getActiveCardViews] count] == kMAX_AMOUNT_OF_CARDS ||[self.game.deck isEmpty]){
+  if([[self getActiveCardViews] count] == kMAX_AMOUNT_OF_CARDS ||[self.game.deck isEmpty] || self.isStacked){
      [self disableAddCardButton];
    }
    else
@@ -158,11 +239,14 @@ typedef UIView<CardViewProtocol> CardView;
   self.addCardButton.enabled = NO;
   if( [[self getActiveCardViews] count] == kMAX_AMOUNT_OF_CARDS)
     [self.addCardButton setTitle:@"Max amount"forState:UIControlStateNormal];
+  else if(self.isStacked){
+     [self.addCardButton setTitle:@"Anchored cards"forState:UIControlStateNormal];
+  }
   else
     [self.addCardButton setTitle:@"Deck ended"forState:UIControlStateNormal];
 }
 
-#pragma mark Private helper methods
+#pragma mark Helper methods
 
 -(void)addThreeCards{
   for(int i = 0 ; i < kNUMBER_OF_CARDS_TO_ADD ; i++){
@@ -175,18 +259,27 @@ typedef UIView<CardViewProtocol> CardView;
 - (void)addNewCardAtShortestColumn{
   Card * card = [self.game addCardToGame];
   if(!card || [[self getActiveCardViews] count] == kMAX_AMOUNT_OF_CARDS){
-    [self disableAddCardButton];
     return;
   }
   CardView * cardView = [self createCardView];
-  [self.cardViews addObject:cardView];
-  [self.gameView addSubview:cardView];
-  UIGestureRecognizer * recognizer = [[UITapGestureRecognizer alloc]
-                                      initWithTarget:self action:@selector(tap:)];
-  [cardView addGestureRecognizer:recognizer];
+  [self initCardView:cardView];
   cardView.frame = [self.grid frameOfCellAtRow:9 inColumn:[self findShortestColumn]];
   [self setCardView:cardView WithCard:card];
   [self.cardBehavior addItem:cardView];
+}
+
+-(void)initCardView:(CardView *)cardView{
+  [self.cardViews addObject:cardView];
+  [self.gameView addSubview:cardView];
+  UIGestureRecognizer * tapRecognizer = [[UITapGestureRecognizer alloc]
+                                      initWithTarget:self action:@selector(tap:)];
+  [cardView addGestureRecognizer:tapRecognizer];
+  UIGestureRecognizer * pinchRecognizer = [[UIPinchGestureRecognizer alloc]
+                                      initWithTarget:self action:@selector(pinch:)];
+  [cardView addGestureRecognizer:pinchRecognizer];
+  UIGestureRecognizer * panRecognizer =  [[UIPanGestureRecognizer alloc]
+                                       initWithTarget:self action:@selector(pan:)];
+  [cardView addGestureRecognizer:panRecognizer];
 }
 
 -(int)findShortestColumn{
@@ -210,7 +303,7 @@ typedef UIView<CardViewProtocol> CardView;
   return shortestColumn;
 }
 
--(NSMutableArray *)getActiveCardViews{
+-(NSMutableArray<CardView *> *)getActiveCardViews{
   NSMutableArray<CardView *> *activeCardsArray = [NSMutableArray array];
   for(CardView *cardView in self.cardViews){
     if(!cardView.matched){
@@ -220,19 +313,12 @@ typedef UIView<CardViewProtocol> CardView;
   return activeCardsArray;
 }
 
-#pragma mark Animation
-
--(void)animatedRemovingCards:(NSMutableArray *)cardsToRemove{
-  [UIView animateWithDuration:1.7 animations:^{
-    for(UIView *cardView in cardsToRemove){
-      int x = (arc4random()%(int)(self.gameView.bounds.size.width * 5));
-      int y = self.gameView.bounds.size.height;
-      cardView.center = CGPointMake(x , -y);
-    }
+-(NSMutableArray<CardView *> *)findCardViewsToRemove{
+  NSMutableArray * matchedCardArray = [NSMutableArray array];
+  for(CardView *cardView in self.cardViews){
+    if(cardView.matched)[matchedCardArray addObject:cardView];
   }
-                   completion:^(BOOL finished){
-    [cardsToRemove makeObjectsPerformSelector:@selector(removeFromSuperview)];
-  }];
+  return matchedCardArray;
 }
 
 #pragma mark Abstract methods
