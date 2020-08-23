@@ -32,7 +32,6 @@ typedef UIView<CardViewProtocol> CardView;
 @property (strong , nonatomic) UIAttachmentBehavior *attachment;
 @property (strong , nonatomic) CardView *attachingCard;
 @property  (strong , nonatomic) NSMutableArray<NSValue *> * originalPositions;
-@property (nonatomic) BOOL isStacked;
 @end
 
 @implementation ViewController//Abstract class
@@ -47,7 +46,7 @@ typedef UIView<CardViewProtocol> CardView;
   [super viewDidLoad];
   self.game = [[CardMatchingGame alloc] initWithCardCount:kEMPTY_DECK
                                                 usingDeck:[self createDeck]];
-  self.isStacked = NO;
+//  self.isStacked = NO;
   self.cardViews = [NSMutableArray array];
   [self initGrid];
   [self initAnimation];
@@ -94,7 +93,7 @@ typedef UIView<CardViewProtocol> CardView;
 
 -(void)tap:(UITapGestureRecognizer *)sender {
   CardView*  cardView = (CardView *)sender.view;
-  if(self.isStacked){
+  if([self isCardsStacked]){
     [self tapWhenStacked : cardView];
   }
   else{
@@ -103,7 +102,6 @@ typedef UIView<CardViewProtocol> CardView;
 }
 
 - (void)tapWhenStacked:(CardView *)cardView {
-  self.isStacked = NO;
   [self animateCardsReturnToPlace:cardView.center];
   [self.animator addBehavior:self.cardBehavior];
   [self updateUI];
@@ -119,12 +117,12 @@ typedef UIView<CardViewProtocol> CardView;
 
 
 -(void)pinch:(UIPinchGestureRecognizer *)sender {
-  if(self.isStacked){ //if already stacked no need for pinch gesture
+  if([self isCardsStacked]){ //if already stacked no need for pinch gesture
     return;
   }
   CGPoint gestutePoint = [sender locationInView:self.gameView];
   if(sender.state == UIGestureRecognizerStateBegan){
-    self.isStacked = YES;
+    //self.isStacked = YES;
     [self.animator removeBehavior:self.cardBehavior];
     [self animatePinchGroupCards:gestutePoint];
   }
@@ -132,7 +130,7 @@ typedef UIView<CardViewProtocol> CardView;
 }
 
 -(void)pan:(UIPanGestureRecognizer *)sender{
-  if(!self.isStacked){
+  if(![self isCardsStacked]){
     return;
   }
   CGPoint gesturePoint = [sender locationInView:self.view];
@@ -219,7 +217,7 @@ typedef UIView<CardViewProtocol> CardView;
 }
 
 -(void)updateCardButton{
-  if([[self getActiveCardViews] count] == kMAX_AMOUNT_OF_CARDS ||[self.game.deck isEmpty] || self.isStacked){
+  if([[self getActiveCardViews] count] == kMAX_AMOUNT_OF_CARDS ||[self.game.deck isEmpty] || [self isCardsStacked]){
      [self disableAddCardButton];
    }
    else
@@ -235,7 +233,7 @@ typedef UIView<CardViewProtocol> CardView;
   self.addCardButton.enabled = NO;
   if( [[self getActiveCardViews] count] == kMAX_AMOUNT_OF_CARDS)
     [self.addCardButton setTitle:@"Max amount"forState:UIControlStateNormal];
-  else if(self.isStacked){
+  else if([self isCardsStacked]){
      [self.addCardButton setTitle:@"Anchored cards"forState:UIControlStateNormal];
   }
   else
@@ -320,6 +318,21 @@ typedef UIView<CardViewProtocol> CardView;
   }
   return matchedCardArray;
 }
+
+-(BOOL)isCardsStacked{
+  CardView * cardView = [[self getActiveCardViews] firstObject];
+  if(!cardView){
+    return NO;
+  }
+  CGPoint point = cardView.center;
+  for(CardView * otherCardView in [self getActiveCardViews]){
+    if(otherCardView.center.x != point.x || otherCardView.center.y != point.y){
+      return NO;
+    }
+  }
+  return YES;
+}
+
 
 #pragma mark Abstract methods
 -(Deck *) createDeck //Abstract Method
